@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.7)
 
 project(sng)
 
-add_executable(${PROJECT_NAME} code/source/main.cpp)
+
 
 set(COMMON_INCLUDE_DIRS
     ${SDL2_INCLUDE_DIR}
@@ -17,15 +17,12 @@ if(MSVC)
     )
 endif()
 
-
-include_directories(
-	${COMMON_INCLUDE_DIRS}
-)
-
-target_link_libraries(${PROJECT_NAME} 
-	${COMMON_LIBRARIES}
-)
+add_subdirectory(lib/cpp-utils/code)
+add_subdirectory(code)
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+
+
+
 
 

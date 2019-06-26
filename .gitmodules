@@ -1,0 +1,3 @@
+[submodule "lib/cpp-utils"]
+	path = lib/cpp-utils
+	url = https://github.com/talex-tnt/CppUtils.git
