@@ -24,6 +24,7 @@ private:
 	bool LoadMedia();
 	bool InitImageExt();
 	void OnEvent(const SDL_Event& e);
+	void Render();
 
 	SDL_Window* m_window;
 	SDL_Surface* m_screenSurface;

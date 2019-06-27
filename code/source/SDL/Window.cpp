@@ -51,6 +51,7 @@ void Window::Show()
 		{
 			OnEvent(e);
 		}
+		Render();
 	}
 }
 
@@ -70,6 +71,7 @@ void Window::OnEvent(const SDL_Event& e)
 	}
 }
 
+void Window::Render()
 {
 	if ( m_mediaSurface  && m_screenSurface )
 	{
