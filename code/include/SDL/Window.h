@@ -1,6 +1,7 @@
 #pragma once
 
 struct SDL_Window;
+struct SDL_Surface;
 
 namespace sdl
 {
@@ -18,7 +19,10 @@ public:
 	Window& operator=(Window&&) = delete;
 
 private:
-	SDL_Window *m_window;
+	bool LoadMedia();
+
+	SDL_Window* m_window;
+	SDL_Surface* m_mediaSurface;
 };
 
 }
