@@ -7,6 +7,7 @@ libs/*
 !libs/cpp-utils
 scripts/build
 
+app/*.dll
 
 # User-specific files
 *.suo
