@@ -20,6 +20,7 @@ public:
 
 private:
 	bool LoadMedia();
+	bool InitImageExt();
 
 	SDL_Window* m_window;
 	SDL_Surface* m_mediaSurface;

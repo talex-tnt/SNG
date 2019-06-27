@@ -1,7 +1,10 @@
 #include "SDL/Window.h"
-#include "SDL.h"
-#include <iostream>
 #include "cpp-utils/Assert.h"
+
+#include <SDL.h>
+#include <SDL_image.h>
+
+#include <iostream>
 
 namespace sdl
 {
@@ -24,7 +27,7 @@ Window::Window() : m_window(nullptr), m_mediaSurface(nullptr)
 		SDL_RenderClear(renderer);
 		SDL_RenderPresent(renderer);
 
-		if (LoadMedia())
+		if ( InitImageExt() && LoadMedia() )
 		{
 			SDL_Surface* screenSurface = SDL_GetWindowSurface(m_window);
 			SDL_BlitSurface(m_mediaSurface, NULL, screenSurface, NULL);
@@ -39,16 +42,24 @@ Window::Window() : m_window(nullptr), m_mediaSurface(nullptr)
 	}
 }
 
+bool Window::InitImageExt()
+{
+	const int imgFlags = IMG_INIT_PNG;
+	const bool result = (IMG_Init(imgFlags) & imgFlags );
+	DB_ASSERT_MSG(result, SDL_GetError());
+	return result;
+}
+
 bool Window::LoadMedia()
 { 
-	bool success = true;
-	m_mediaSurface = SDL_LoadBMP( "images/Placeholder.bmp" ); 
+	bool result = true;
+	m_mediaSurface = IMG_Load( "images/SDL_Logo.png" );
 	if( !m_mediaSurface ) 
 	{
-		success = false;
+		result = false;
 	} 
-	DB_ASSERT_MSG(success,  SDL_GetError());
-	return success; 
+	DB_ASSERT_MSG(result,  SDL_GetError());
+	return result; 
 }
 
 Window::~Window()
