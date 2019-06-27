@@ -1,13 +1,13 @@
 #include "SDL/App.h"
 #include "SDL/Window.h"
-#include <iostream>
 
 int main(int argc, char *argv[])
 {
-	sdl::App sdl;
-	if (sdl.Init())
+	sdl::App sdlApp;
+	if (sdlApp.Init())
 	{
 		sdl::Window window;
+		window.Show();
 	}
   return 0;
 }

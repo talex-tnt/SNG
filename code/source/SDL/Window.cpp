@@ -9,7 +9,11 @@
 namespace sdl
 {
 
-Window::Window() : m_window(nullptr), m_mediaSurface(nullptr)
+Window::Window() 
+	: m_window(nullptr)
+	, m_screenSurface(nullptr)
+	, m_mediaSurface(nullptr)
+	, m_quit(false)
 {
 	m_window = SDL_CreateWindow(
 		"SDL2Test",
@@ -27,18 +31,26 @@ Window::Window() : m_window(nullptr), m_mediaSurface(nullptr)
 		SDL_RenderClear(renderer);
 		SDL_RenderPresent(renderer);
 
-		if ( InitImageExt() && LoadMedia() )
-		{
-			SDL_Surface* screenSurface = SDL_GetWindowSurface(m_window);
-			SDL_BlitSurface(m_mediaSurface, NULL, screenSurface, NULL);
-			SDL_UpdateWindowSurface(m_window);
-		}
+		m_screenSurface = SDL_GetWindowSurface(m_window);
 
-		SDL_Delay(3000);
+		InitImageExt();
+		LoadMedia();
 	}
 	else
 	{
 		DB_ASSERT_MSG(false,  SDL_GetError());
+	}
+}
+
+void Window::Show()
+{
+	SDL_Event e;
+	while ( !m_quit )
+	{
+		while ( SDL_PollEvent(&e) != 0 )
+		{
+			OnEvent(e);
+		}
 	}
 }
 
@@ -48,6 +60,22 @@ bool Window::InitImageExt()
 	const bool result = (IMG_Init(imgFlags) & imgFlags );
 	DB_ASSERT_MSG(result, SDL_GetError());
 	return result;
+}
+
+void Window::OnEvent(const SDL_Event& e)
+{
+	if ( e.type == SDL_QUIT )
+	{
+		m_quit = true;
+	}
+}
+
+{
+	if ( m_mediaSurface  && m_screenSurface )
+	{
+		SDL_BlitSurface(m_mediaSurface, NULL, m_screenSurface, NULL);
+		SDL_UpdateWindowSurface(m_window);
+	}
 }
 
 bool Window::LoadMedia()
