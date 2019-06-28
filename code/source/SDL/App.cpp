@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include <iostream>
 #include "cpp-utils/Assert.h"
+#include "cpp-utils/Log.h"
 
 namespace sdl
 { 
@@ -10,7 +11,7 @@ bool App::Init()
 {
 	if ( SDL_Init(SDL_INIT_VIDEO) < 0 )
 	{
-		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
+		DB_MSG("SDL_Init Error: " << SDL_GetError());
 		DB_ASSERT_MSG(false, SDL_GetError());
 		m_initialized = false;
 	}
