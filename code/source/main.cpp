@@ -1,13 +1,15 @@
-#include "SDL/App.h"
-#include "SDL/Window.h"
+#include "AppFactory.h"
+#include "App/IApp.h"
+#include "cpp-utils/Assert.h"
 
 int main(int argc, char *argv[])
 {
-	sdl::App sdlApp;
-	if (sdlApp.Init())
+	sng::AppFactory appFactory;
+	std::unique_ptr<app::IApp> app = appFactory.CreateApp();
+	DB_ASSERT_MSG(app, "App creation failed.");
+	if ( app &&  app->Init() )
 	{
-		sdl::Window window;
-		window.Show();
+		app->Run();
 	}
   return 0;
 }

@@ -3,6 +3,7 @@
 #include <iostream>
 #include "cpp-utils/Assert.h"
 #include "cpp-utils/Log.h"
+#include "SDL/Window.h"
 
 namespace sdl
 { 
@@ -20,6 +21,12 @@ bool App::Init()
 		m_initialized = true;
 	}
 	return m_initialized;
+}
+
+void App::Run()
+{
+	sdl::Window window;
+	window.Show();
 }
 
 App::~App()
