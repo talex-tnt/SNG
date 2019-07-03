@@ -1,18 +1,17 @@
 #pragma once
 #include <memory>
+#include "App/IUIFactory.h"
 
 namespace app
 {
 class IApp;
 }
+
 namespace sng
 {
-
 class AppFactory
 {
 public:
-	~AppFactory();
-	std::unique_ptr<app::IApp> CreateApp() const;
+static std::unique_ptr<app::IApp> CreateApp();
 };
-
 }

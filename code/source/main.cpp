@@ -1,15 +1,15 @@
-#include "AppFactory.h"
 #include "App/IApp.h"
 #include "cpp-utils/Assert.h"
+#include "AppFactory.h"
 
 int main(int argc, char *argv[])
 {
-	sng::AppFactory appFactory;
-	std::unique_ptr<app::IApp> app = appFactory.CreateApp();
+	std::unique_ptr<app::IApp> app = sng::AppFactory::CreateApp();
 	DB_ASSERT_MSG(app, "App creation failed.");
 	if ( app &&  app->Init() )
 	{
 		app->Run();
+		return EXIT_SUCCESS;
 	}
-  return 0;
+	return EXIT_FAILURE;
 }

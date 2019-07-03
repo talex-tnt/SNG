@@ -1,4 +1,4 @@
-#include "SDL/Window.h"
+#include "SDL/UI/Window.h"
 #include "cpp-utils/Assert.h"
 
 #include <SDL.h>
@@ -8,12 +8,13 @@
 
 namespace sdl
 {
+namespace ui
+{
 
-Window::Window() 
+Window::Window()
 	: m_window(nullptr)
 	, m_screenSurface(nullptr)
 	, m_mediaSurface(nullptr)
-	, m_quit(false)
 {
 	m_window = SDL_CreateWindow(
 		"SDL2Test",
@@ -38,40 +39,20 @@ Window::Window()
 	}
 	else
 	{
-		DB_ASSERT_MSG(false,  SDL_GetError());
-	}
-}
-
-void Window::Show()
-{
-	SDL_Event e;
-	while ( !m_quit )
-	{
-		while ( SDL_PollEvent(&e) != 0 )
-		{
-			OnEvent(e);
-		}
-		Render();
+		DB_ASSERT_MSG(false, SDL_GetError());
 	}
 }
 
 bool Window::InitImageExt()
 {
 	const int imgFlags = IMG_INIT_PNG;
-	const bool result = (IMG_Init(imgFlags) & imgFlags );
+	const bool result = ( IMG_Init(imgFlags) & imgFlags );
 	DB_ASSERT_MSG(result, SDL_GetError());
 	return result;
 }
 
-void Window::OnEvent(const SDL_Event& e)
-{
-	if ( e.type == SDL_QUIT )
-	{
-		m_quit = true;
-	}
-}
 
-void Window::Render()
+void Window::Render() const
 {
 	if ( m_mediaSurface  && m_screenSurface )
 	{
@@ -80,21 +61,26 @@ void Window::Render()
 	}
 }
 
+void Window::Update()
+{
+
+}
+
 bool Window::LoadMedia()
-{ 
+{
 	bool result = true;
-	m_mediaSurface = IMG_Load( "images/SDL_Logo.png" );
-	if( !m_mediaSurface ) 
+	m_mediaSurface = IMG_Load("images/SDL_Logo.png");
+	if ( !m_mediaSurface )
 	{
 		result = false;
-	} 
-	DB_ASSERT_MSG(result,  SDL_GetError());
-	return result; 
+	}
+	DB_ASSERT_MSG(result, SDL_GetError());
+	return result;
 }
 
 Window::~Window()
 {
-	if (m_mediaSurface)
+	if ( m_mediaSurface )
 	{
 		SDL_FreeSurface(m_mediaSurface);
 	}
@@ -102,5 +88,6 @@ Window::~Window()
 	{
 		SDL_DestroyWindow(m_window);
 	}
+}
 }
 }

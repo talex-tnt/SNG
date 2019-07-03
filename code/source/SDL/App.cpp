@@ -3,41 +3,62 @@
 #include <iostream>
 #include "cpp-utils/Assert.h"
 #include "cpp-utils/Log.h"
-#include "SDL/Window.h"
+#include "SDL/UI/Window.h"
+#include "SDL/UIFactory.h"
 
 namespace sdl
 { 
+App::App() = default;
 
-bool App::Init()
+App::~App()
 {
+	SDL_Quit();
+}
+
+bool App::OnInit()
+{
+	bool initialized = false;
 	if ( SDL_Init(SDL_INIT_VIDEO) < 0 )
 	{
 		DB_MSG("SDL_Init Error: " << SDL_GetError());
 		DB_ASSERT_MSG(false, SDL_GetError());
-		m_initialized = false;
+		initialized = false;
 	}
 	else
 	{
-		m_initialized = true;
+		initialized = true;
 	}
-	return m_initialized;
+	return initialized;
 }
 
-void App::Run()
+void App::ProcessEvents()
 {
-	sdl::Window window;
-	window.Show();
+	SDL_Event e;
+	while ( SDL_PollEvent(&e) != 0 )
+	{
+		OnEvent(e);
+	}
 }
 
-App::~App()
-{ 
-	SDL_Quit();
-}
-
-App::App() 
-	: m_initialized(false)
+void App::OnEvent(const SDL_Event& e)
 {
-	
+	switch ( e.type )
+	{
+	case SDL_QUIT:
+	{
+		Quit();
+	} break;
+	//
+	default:
+	break;
+	}
 }
+
+std::unique_ptr<app::IUIFactory> App::CreateUIFactory()
+{
+	return std::make_unique<sdl::UIFactory>();
+}
+
+
 
 }

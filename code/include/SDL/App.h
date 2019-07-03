@@ -1,14 +1,16 @@
 #pragma once
 #include "App/IApp.h"
+#include "App/AppBase.h"
 
+union SDL_Event;
 namespace sdl
 {
-
-class App : public app::IApp
+class IUIFactory;
+class App : public app::AppBase
 {
 public:
 	App();
-	~App();
+	~App() override;
 
 	App(const App&) = delete;
 	App(App&&) = delete;
@@ -16,11 +18,14 @@ public:
 	App& operator=(const App&) = delete;
 	App& operator=(App&&) = delete;
 
-	bool Init() override;
-	void Run() override;
+protected:
+	bool OnInit() override;
+	void ProcessEvents() override;
+
+	std::unique_ptr<app::IUIFactory> CreateUIFactory() override;
 
 private:
-	bool m_initialized;
+	void OnEvent(const SDL_Event& e);
 };
 
 }
