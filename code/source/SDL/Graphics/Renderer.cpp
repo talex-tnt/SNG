@@ -23,6 +23,8 @@ Renderer::Renderer(ui::Window& i_window)
 	Init();
 }
 
+Renderer::~Renderer() = default;
+
 void Renderer::Render(const app::graphics::ITexture& i_texture) const
 {
 	SDL_RenderClear(m_renderer.get());
@@ -52,7 +54,6 @@ const SDL_Renderer* Renderer::GetSDLRenderer() const
 	return m_renderer ? m_renderer.get() : nullptr;
 }
 
-Renderer::~Renderer() = default;
 
 } //namespace graphics
 } // namespace sdl
