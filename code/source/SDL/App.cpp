@@ -26,6 +26,7 @@ bool App::OnInit()
 	}
 	else
 	{
+		// init more stuff here...
 		initialized = true;
 	}
 	return initialized;

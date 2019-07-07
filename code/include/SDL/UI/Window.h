@@ -1,12 +1,30 @@
 #pragma once
 #include "App/UI/IWindow.h"
+#include <functional>
+#include <memory>
 
 struct SDL_Window;
 struct SDL_Surface;
+struct SDL_Renderer;
+struct SDL_Texture;
 union SDL_Event;
+
+namespace app
+{
+namespace graphics
+{
+class IRenderer;
+}
+}
 
 namespace sdl
 {
+namespace graphics
+{
+class Renderer;
+class TextureMgr;
+}
+
 namespace ui
 {
 
@@ -22,17 +40,21 @@ public:
 	Window& operator=(const Window&) = delete;
 	Window& operator=(Window&&) = delete;
 
+	SDL_Window* GetSDLWindow();
+	const SDL_Window* GetSDLWindow() const; 
+
+	const app::graphics::IRenderer* GetRenderer() const;
+
 private:
-	bool LoadMedia();
-	bool InitImageExt();
 
 	void Render() const override;
 	void Update() override;
 
+	using WindowUniquePtr = std::unique_ptr<SDL_Window, std::function<void(SDL_Window*)>>;
+	WindowUniquePtr m_window;
 
-	SDL_Window* m_window;
-	SDL_Surface* m_screenSurface;
-	SDL_Surface* m_mediaSurface;
+	std::unique_ptr<sdl::graphics::Renderer> m_renderer;
+	std::unique_ptr<sdl::graphics::TextureMgr> m_textureMgr;
 };
 
 }

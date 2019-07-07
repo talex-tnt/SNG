@@ -1,41 +1,45 @@
 #include "SDL/UI/Window.h"
 #include "cpp-utils/Assert.h"
 
+#include "SDL/Graphics/Renderer.h"
+#include "SDL/Graphics/TextureMgr.h"
+
 #include <SDL.h>
-#include <SDL_image.h>
 
 #include <iostream>
+#include <iosfwd>
+#include <string>
+
+
 
 namespace sdl
 {
 namespace ui
 {
 
+
 Window::Window()
-	: m_window(nullptr)
-	, m_screenSurface(nullptr)
-	, m_mediaSurface(nullptr)
+	: m_window(
+		SDL_CreateWindow(
+			"SDL2Test",
+			SDL_WINDOWPOS_UNDEFINED,
+			SDL_WINDOWPOS_UNDEFINED,
+			640,
+			480,
+			0
+		),
+		[] (SDL_Window* win) { SDL_DestroyWindow(win); })
 {
-	m_window = SDL_CreateWindow(
-		"SDL2Test",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		640,
-		480,
-		0
-	);
 
 	if ( m_window )
 	{
-		SDL_Renderer* renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_SOFTWARE);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-		SDL_RenderClear(renderer);
-		SDL_RenderPresent(renderer);
-
-		m_screenSurface = SDL_GetWindowSurface(m_window);
-
-		InitImageExt();
-		LoadMedia();
+		m_renderer = std::make_unique<sdl::graphics::Renderer>(*this);
+		DB_ASSERT_MSG(m_renderer, "Renderer Not Initialized");
+		if ( m_renderer )
+		{
+			sdl::graphics::Renderer* rend = m_renderer.get();
+			m_textureMgr = std::make_unique<sdl::graphics::TextureMgr>(*rend);
+		}
 	}
 	else
 	{
@@ -43,51 +47,38 @@ Window::Window()
 	}
 }
 
-bool Window::InitImageExt()
+Window::~Window() = default;
+
+
+SDL_Window* Window::GetSDLWindow()
 {
-	const int imgFlags = IMG_INIT_PNG;
-	const bool result = ( IMG_Init(imgFlags) & imgFlags );
-	DB_ASSERT_MSG(result, SDL_GetError());
-	return result;
+	return m_window.get();
 }
 
+const SDL_Window* Window::GetSDLWindow() const
+{
+	return m_window.get();
+}
+
+const app::graphics::IRenderer* Window::GetRenderer() const
+{
+	return m_renderer.get();
+}
 
 void Window::Render() const
 {
-	if ( m_mediaSurface  && m_screenSurface )
+	const app::graphics::ITexture* texture = m_textureMgr->GetTexture();
+	if ( texture )
 	{
-		SDL_BlitSurface(m_mediaSurface, NULL, m_screenSurface, NULL);
-		SDL_UpdateWindowSurface(m_window);
+		m_renderer->Render(*texture);
 	}
 }
+
 
 void Window::Update()
 {
 
 }
 
-bool Window::LoadMedia()
-{
-	bool result = true;
-	m_mediaSurface = IMG_Load("images/SDL_Logo.png");
-	if ( !m_mediaSurface )
-	{
-		result = false;
-	}
-	DB_ASSERT_MSG(result, SDL_GetError());
-	return result;
-}
-
-Window::~Window()
-{
-	if ( m_mediaSurface )
-	{
-		SDL_FreeSurface(m_mediaSurface);
-	}
-	if ( m_window )
-	{
-		SDL_DestroyWindow(m_window);
-	}
-}
 }
 }

@@ -1,7 +1,13 @@
 #pragma once
+#include <memory>
 
 namespace app
 {
+namespace graphics
+{
+class IRenderer;
+}
+
 namespace ui
 {
 

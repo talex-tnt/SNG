@@ -21,7 +21,7 @@ bool AppBase::Init()
 	if ( m_uiFactory && OnInit() )
 	{
 		m_window = std::move(m_uiFactory->CreateWindow());
-		return true;
+		return m_window != nullptr;
 	}
 	return false;
 }
