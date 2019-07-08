@@ -4,7 +4,6 @@
 #include "cpp-utils/Assert.h"
 #include "cpp-utils/Log.h"
 #include "SDL/UI/Window.h"
-#include "SDL/UIFactory.h"
 
 namespace sdl
 { 
@@ -55,11 +54,9 @@ void App::OnEvent(const SDL_Event& e)
 	}
 }
 
-std::unique_ptr<app::IUIFactory> App::CreateUIFactory()
+std::unique_ptr<app::ui::IWindow> App::CreateWindow() const
 {
-	return std::make_unique<sdl::UIFactory>();
+	return std::make_unique<sdl::ui::Window>();
 }
-
-
 
 }

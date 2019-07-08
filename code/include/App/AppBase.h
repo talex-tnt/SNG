@@ -4,7 +4,6 @@
 
 namespace app
 {
-class IUIFactory;
 namespace ui
 {
 class IWindow;
@@ -25,7 +24,6 @@ protected:
 	virtual bool OnInit() = 0;
 	virtual void ProcessEvents() = 0;
 
-	std::unique_ptr<app::IUIFactory> m_uiFactory;
 	std::unique_ptr<app::ui::IWindow> m_window;
 	bool m_quit;
 };

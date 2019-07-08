@@ -3,7 +3,10 @@
 
 namespace app
 {
-class IUIFactory;
+namespace ui
+{
+class IWindow;
+}
 class IApp
 {
 public:
@@ -12,7 +15,8 @@ public:
 	virtual void Run() = 0;
 
 protected:
-	virtual std::unique_ptr<IUIFactory> CreateUIFactory() = 0;
+	virtual std::unique_ptr<app::ui::IWindow> CreateWindow() const = 0;
+
 };
 
 }

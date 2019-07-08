@@ -22,7 +22,7 @@ protected:
 	bool OnInit() override;
 	void ProcessEvents() override;
 
-	std::unique_ptr<app::IUIFactory> CreateUIFactory() override;
+	std::unique_ptr<app::ui::IWindow> CreateWindow() const override;
 
 private:
 	void OnEvent(const SDL_Event& e);

@@ -1,5 +1,4 @@
 #include "App/AppBase.h"
-#include "App/IUIFactory.h"
 #include "App/UI/IWindow.h"
 
 #include "cpp-utils/Assert.h"
@@ -17,10 +16,9 @@ AppBase::~AppBase() = default;
 
 bool AppBase::Init()
 {
-	m_uiFactory = std::move(CreateUIFactory());
-	if ( m_uiFactory && OnInit() )
+	if ( OnInit() )
 	{
-		m_window = std::move(m_uiFactory->CreateWindow());
+		m_window = std::move(CreateWindow());
 		return m_window != nullptr;
 	}
 	return false;
