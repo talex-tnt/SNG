@@ -1,6 +1,7 @@
 #pragma once
 #include "App/Graphics/ITexture.h"
 #include <string>
+#include <functional>
 
 struct SDL_Renderer;
 struct SDL_Texture;
@@ -26,7 +27,10 @@ public:
 
 private:
 	SDL_Renderer& m_renderer;
-	SDL_Texture* m_texture;
+
+	using TextureUnPtr = std::unique_ptr<SDL_Texture, std::function<void(SDL_Texture*)>>;
+	TextureUnPtr m_texture;
+
 };
 
 }
