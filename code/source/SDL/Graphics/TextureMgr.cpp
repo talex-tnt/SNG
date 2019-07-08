@@ -23,9 +23,6 @@ TextureMgr::TextureMgr(sdl::graphics::Renderer& i_renderer)
 	: m_renderer(i_renderer)
 {
 	InitImageExt();
-
-	const TexturePath texturePath("images/SDL_Logo.png");
-	TextureId texture = CreateTexture(texturePath);
 }
 
 const sdl::graphics::Texture* TextureMgr::_FindTextureById(TextureId i_textureId) const
@@ -66,7 +63,13 @@ TextureId TextureMgr::CreateTexture(TexturePath i_path)
 	{
 		const std::size_t hash = std::hash<TexturePath::ValueType> {}( i_path.GetValue() );
 		textureId = TextureId(hash);
-		m_textures.emplace(textureId, std::move(texture));
+
+		const app::graphics::ITexture* prevTex = FindTextureById(textureId);
+		DB_ASSERT_MSG(prevTex == nullptr, "Texture at path " << i_path << " was already created.");
+		if ( prevTex == nullptr)
+		{
+			m_textures.emplace(textureId, std::move(texture));
+		}
 	}
 	return textureId;
 }

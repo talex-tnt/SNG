@@ -3,7 +3,7 @@
 
 #include "SDL/Graphics/Renderer.h"
 #include "SDL/Graphics/TextureMgr.h"
-
+#include "App/Graphics/ITextureMgr.h"
 #include <SDL.h>
 
 #include <iostream>
@@ -11,12 +11,10 @@
 #include <string>
 
 
-
 namespace sdl
 {
 namespace ui
 {
-
 
 Window::Window()
 	: m_window(
@@ -54,17 +52,22 @@ Window::~Window() = default;
 
 SDL_Window* Window::GetSDLWindow()
 {
-	return m_window.get();
+	return m_window ? m_window.get() : nullptr;
 }
 
 const SDL_Window* Window::GetSDLWindow() const
 {
-	return m_window.get();
+	return m_window ? m_window.get() : nullptr;
 }
 
 const app::graphics::IRenderer* Window::GetRenderer() const
 {
-	return m_renderer.get();
+	return m_renderer ? m_renderer.get() : nullptr;
+}
+
+const app::graphics::ITextureMgr* Window::GetTextureMgr() const
+{
+	return m_textureMgr ? m_textureMgr.get() : nullptr;
 }
 
 void Window::Render() const

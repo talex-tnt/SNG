@@ -15,6 +15,7 @@ namespace app
 namespace graphics
 {
 class IRenderer;
+class ITextureMgr;
 }
 }
 
@@ -45,6 +46,7 @@ public:
 	const SDL_Window* GetSDLWindow() const; 
 
 	const app::graphics::IRenderer* GetRenderer() const;
+	const app::graphics::ITextureMgr* GetTextureMgr() const;
 
 private:
 
