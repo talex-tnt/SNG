@@ -19,7 +19,7 @@ bool App::OnInit()
 	bool initialized = false;
 	if ( SDL_Init(SDL_INIT_VIDEO) < 0 )
 	{
-		DB_MSG("SDL_Init Error: " << SDL_GetError());
+		DB_LOG("SDL_Init Error: " << SDL_GetError());
 		DB_ASSERT_MSG(false, SDL_GetError());
 		initialized = false;
 	}

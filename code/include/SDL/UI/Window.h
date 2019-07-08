@@ -1,5 +1,6 @@
 #pragma once
 #include "App/UI/IWindow.h"
+#include "App/Identifiers.h"
 #include <functional>
 #include <memory>
 
@@ -55,6 +56,8 @@ private:
 
 	std::unique_ptr<sdl::graphics::Renderer> m_renderer;
 	std::unique_ptr<sdl::graphics::TextureMgr> m_textureMgr;
+
+	TextureId m_textureId;
 };
 
 }

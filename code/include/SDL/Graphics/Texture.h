@@ -2,6 +2,7 @@
 #include "App/Graphics/ITexture.h"
 #include <string>
 #include <functional>
+#include "App/Identifiers.h"
 
 struct SDL_Renderer;
 struct SDL_Texture;
@@ -13,7 +14,7 @@ namespace graphics
 class Texture : public app::graphics::ITexture
 {
 public:
-	Texture(const std::string& i_path, SDL_Renderer& i_renderer);
+	Texture(const TexturePath& i_path, SDL_Renderer& i_renderer);
 	~Texture() = default;
 
 	Texture(const Texture&) = delete;
@@ -24,6 +25,7 @@ public:
 
 
 	void Render(int x, int y) const override;
+	bool IsValid() const override;
 
 private:
 	SDL_Renderer& m_renderer;

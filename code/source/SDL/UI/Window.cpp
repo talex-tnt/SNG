@@ -39,6 +39,8 @@ Window::Window()
 		{
 			sdl::graphics::Renderer* rend = m_renderer.get();
 			m_textureMgr = std::make_unique<sdl::graphics::TextureMgr>(*rend);
+
+			m_textureId = m_textureMgr->CreateTexture(TexturePath("images/SDL_Logo.png"));
 		}
 	}
 	else
@@ -67,8 +69,7 @@ const app::graphics::IRenderer* Window::GetRenderer() const
 
 void Window::Render() const
 {
-	const app::graphics::ITexture* texture = m_textureMgr->GetTexture();
-	if ( texture )
+	if ( const app::graphics::ITexture* texture = m_textureMgr->FindTextureById(m_textureId) )
 	{
 		m_renderer->Render(*texture);
 	}

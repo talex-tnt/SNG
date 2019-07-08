@@ -1,5 +1,8 @@
 #pragma once
 #include "App/Graphics/ITextureMgr.h"
+#include "App/Identifiers.h"
+
+#include <unordered_map>
 #include <memory>
 
 namespace app
@@ -29,14 +32,22 @@ public:
 	TextureMgr& operator=(const TextureMgr&) = delete;
 	TextureMgr& operator=(TextureMgr&&) = delete;
 
-	const app::graphics::ITexture* GetTexture() const;
-	app::graphics::ITexture* GetTexture();
+	const app::graphics::ITexture* FindTextureById(TextureId i_textureId) const override;
+	app::graphics::ITexture* FindTextureById(TextureId i_textureId) override;
+	TextureId CreateTexture(TexturePath i_path) override;
+
+
+	const sdl::graphics::Texture* _FindTextureById(TextureId i_textureId) const;
+	sdl::graphics::Texture* _FindTextureById(TextureId i_textureId);
 
 private:
 	sdl::graphics::Renderer& m_renderer;
 	bool InitImageExt();
 
-	std::unique_ptr<sdl::graphics::Texture> m_texture;
+	using TexturePtr = std::unique_ptr<sdl::graphics::Texture>;
+	using TextureMap = std::unordered_map<TextureId, TexturePtr, TextureId::Hasher>;
+	TextureMap m_textures;
+
 };
 
 }
