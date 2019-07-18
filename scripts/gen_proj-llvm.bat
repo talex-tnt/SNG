@@ -6,8 +6,8 @@ cd ..
 set ROOT=%cd%
 
 cd %CURRENT_DIR%
-mkdir build
-cd build
+mkdir build-llvm
+cd build-llvm
 
 set SNG_LIB_DIR=%ROOT%\libs
 
@@ -20,6 +20,6 @@ set SDL_LIBRARY_PATH=%SNG_LIB_DIR%\%SDL_VERSION%\build\Release
 set SDL_LIBS=%SDL_LIBRARY_PATH%\SDL2.lib;%SDL_LIBRARY_PATH%\SDL2main.lib;Imm32.lib;version.lib
 
 
-cmake -G "Visual Studio 15 2017 Win64" ../.. -DSDL2_INCLUDE_DIR=%SDL_INCLUDE_PATH% -DSDL2_LIBRARY=%SDL_LIBS%
+cmake -G "Visual Studio 15 2017 Win64" ../.. -T llvm -DSDL2_INCLUDE_DIR=%SDL_INCLUDE_PATH% -DSDL2_LIBRARY=%SDL_LIBS%
 
 pause
