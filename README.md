@@ -9,13 +9,14 @@ Please install **CMake** first and download **SDL2-2.0.9**.
 The *scripts* folder contains the following scripts:  
 *scripts* \ **gen_proj-vsc.bat** generates Visual Studio project files in *scripts* \ **build-vsc**  
 *scripts* \ **gen_proj-llvm.bat** generates Visual Studio project files in *scripts* \ **build-llvm**  
-*scripts* \ **gen_SDL_proj.bat** generates Visual Studio project files for **SDL2-2.0.9**. Fix the script for supporting a different version.  
 *scripts* \ **clean_proj.bat** cleans up *scripts* \ **build-%%%** folders containing the project files.  
 
-The build script expects a folder 
-*libs\SDL2-2.0.9* 
-containing all the SDL files.
-You need to extract SDL there, run *scripts* \ **gen_SDL_proj.bat** open Visual Studio and build the project.
+*scripts* \ **gen_SDL_proj.bat** generates Visual Studio project files for **SDL2-2.0.9**.  
+Fix the script for supporting a different version.  
+This script expects a folder 
+*libs* \ **SDL2-2.0.9**   
+containing all the **SDL** files.
+You need to extract **SDL** there, run *scripts* \ **gen_SDL_proj.bat** open *Visual Studio* and build the project.
 
 Then create the folder:
 *scripts* \ **app**  
