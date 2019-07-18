@@ -25,7 +25,7 @@ and copy the **SDL2.dll** file in it after the SDL2-2.0.9 is built.
 
 You can then run:
 *scripts* \ **gen_proj-vsc.bat**
-to generate the Visual Studio project inside *scripts\build-vsc*
+to generate the *Visual Studio* project inside *scripts* \ **build-vsc**  
 open the solution in it and build it.
 
 
@@ -35,5 +35,5 @@ http://releases.llvm.org/download.html
 and the **LLVM Toolchain Extension** for *Visual Studio 2017*:  
 https://marketplace.visualstudio.com/items?itemName=LLVMExtensions.llvm-toolchain  
 Then run:  
-*scripts* \ **gen_SDL_proj-llvm.bat** that will generates Visual Studio project files under
-*scripts* \ **build-llvm** with llvm as target.
+*scripts* \ **gen_SDL_proj-llvm.bat** that will generates *Visual Studio* project files under
+*scripts* \ **build-llvm** with **llvm** as **target**.
