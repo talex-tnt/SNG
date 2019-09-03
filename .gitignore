@@ -5,7 +5,7 @@
 
 libs/*
 !libs/cpp-utils
-scripts/build
+scripts/build-*
 
 app/*.dll
 
