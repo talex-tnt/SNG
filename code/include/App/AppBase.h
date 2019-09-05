@@ -1,5 +1,6 @@
 #pragma once
 #include "App/IApp.h"
+#include "Events.h"
 #include <memory>
 
 namespace app
@@ -18,7 +19,9 @@ protected:
 public:
 	bool Init() override final; 
 	void Run() override final;
-	void Quit();
+	
+	void OnEvent(events::EventType i_eventType);
+	void OnEvent(const events::KeyDownEvent& i_event);
 
 protected:
 	virtual bool OnInit() = 0;

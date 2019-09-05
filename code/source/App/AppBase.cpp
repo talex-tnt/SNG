@@ -34,9 +34,20 @@ void AppBase::Run()
 	}
 }
 
-void AppBase::Quit()
+
+void AppBase::OnEvent(events::EventType i_eventType)
 {
+	switch ( i_eventType )
+	{
+	case events::EventType::k_quit:
 	m_quit = true;
+	break;
+	}
+}
+
+void AppBase::OnEvent(const events::KeyDownEvent& i_event)
+{
+	std::cout << i_event << std::endl;
 }
 
 }

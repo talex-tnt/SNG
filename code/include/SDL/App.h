@@ -25,7 +25,7 @@ protected:
 	std::unique_ptr<app::ui::IWindow> CreateWindow() const override;
 
 private:
-	void OnEvent(const SDL_Event& e);
+	void _OnEvent(const SDL_Event& e);
 };
 
 }
