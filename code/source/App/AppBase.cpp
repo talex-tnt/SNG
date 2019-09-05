@@ -1,7 +1,7 @@
 #include "App/AppBase.h"
-#include "App/UI/IWindow.h"
-
 #include "cpp-utils/Assert.h"
+#include "App/AppContext.h"
+#include "App/IAppDelegate.h"
 
 namespace app
 { 
@@ -14,23 +14,32 @@ AppBase::AppBase()
 
 AppBase::~AppBase() = default;
 
-bool AppBase::Init()
+bool AppBase::Init(IAppDelegate& i_appDelegate)
 {
+	m_appDelegate = &i_appDelegate;
 	if ( OnInit() )
 	{
-		m_window = std::move(CreateWindow());
-		return m_window != nullptr;
+		m_context = CreateAppContext();
+		if (m_context)
+		{
+			i_appDelegate.OnInit(*m_context);
+		}
+		return m_context != nullptr;
 	}
 	return false;
 }
 
 void AppBase::Run()
 {
+	graphics::RenderContext& appContext = m_context->GetRenderContext();
+	DB_ASSERT_MSG(m_appDelegate, "Please call Init(..) first");
 	while ( !m_quit )
 	{
 		ProcessEvents();
-		m_window->Update();
-		m_window->Render();
+		m_appDelegate->OnUpdate();
+		m_appDelegate->OnRender(appContext);
+		//m_window->Update();
+		//m_window->Render();
 	}
 }
 

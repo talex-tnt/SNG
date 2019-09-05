@@ -5,6 +5,7 @@
 #include "cpp-utils/Log.h"
 #include "SDL/UI/Window.h"
 #include "App/Events.h"
+#include "App/AppContext.h"
 
 namespace sdl
 { 
@@ -26,7 +27,7 @@ bool App::OnInit()
 	}
 	else
 	{
-		// init more stuff here...
+		m_window = std::make_unique<sdl::ui::Window>();
 		initialized = true;
 	}
 	return initialized;
@@ -81,9 +82,15 @@ void App::_OnEvent(const SDL_Event& e)
 	}
 }
 
-std::unique_ptr<app::ui::IWindow> App::CreateWindow() const
+std::unique_ptr<app::AppContext> App::CreateAppContext() const
 {
-	return std::make_unique<sdl::ui::Window>();
+	app::graphics::IRenderer* renderer = m_window->GetRenderer();
+	app::graphics::ITextureMgr* textureMgr = m_window->GetTextureMgr();
+	if (renderer && textureMgr)
+	{
+		return std::make_unique<app::AppContext>(*renderer, *textureMgr);
+	}
+	return nullptr;
 }
 
 }

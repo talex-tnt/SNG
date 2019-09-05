@@ -30,11 +30,11 @@ class TextureMgr;
 namespace ui
 {
 
-class Window : public app::ui::IWindow
+class Window
 {
 public:
 	Window();
-	~Window() override;
+	~Window();
 
 	Window(const Window&) = delete;
 	Window(Window&&) = delete;
@@ -47,19 +47,16 @@ public:
 
 	const app::graphics::IRenderer* GetRenderer() const;
 	const app::graphics::ITextureMgr* GetTextureMgr() const;
+	app::graphics::IRenderer* GetRenderer();
+	app::graphics::ITextureMgr* GetTextureMgr();
 
 private:
-
-	void Render() const override;
-	void Update() override;
 
 	using WindowUniquePtr = std::unique_ptr<SDL_Window, std::function<void(SDL_Window*)>>;
 	WindowUniquePtr m_window;
 
 	std::unique_ptr<sdl::graphics::Renderer> m_renderer;
 	std::unique_ptr<sdl::graphics::TextureMgr> m_textureMgr;
-
-	TextureId m_textureId;
 };
 
 }

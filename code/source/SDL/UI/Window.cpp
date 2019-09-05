@@ -37,8 +37,6 @@ Window::Window()
 		{
 			sdl::graphics::Renderer* rend = m_renderer.get();
 			m_textureMgr = std::make_unique<sdl::graphics::TextureMgr>(*rend);
-
-			m_textureId = m_textureMgr->CreateTexture(TexturePath("images/SDL_Logo.png"));
 		}
 	}
 	else
@@ -65,23 +63,19 @@ const app::graphics::IRenderer* Window::GetRenderer() const
 	return m_renderer ? m_renderer.get() : nullptr;
 }
 
+app::graphics::IRenderer* Window::GetRenderer()
+{
+	return m_renderer ? m_renderer.get() : nullptr;
+}
+
 const app::graphics::ITextureMgr* Window::GetTextureMgr() const
 {
 	return m_textureMgr ? m_textureMgr.get() : nullptr;
 }
 
-void Window::Render() const
+app::graphics::ITextureMgr* Window::GetTextureMgr()
 {
-	if ( const app::graphics::ITexture* texture = m_textureMgr->FindTextureById(m_textureId) )
-	{
-		m_renderer->Render(*texture);
-	}
-}
-
-
-void Window::Update()
-{
-
+	return m_textureMgr ? m_textureMgr.get() : nullptr;
 }
 
 }
