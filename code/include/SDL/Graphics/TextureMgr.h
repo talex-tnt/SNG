@@ -24,7 +24,7 @@ class TextureMgr : public app::graphics::ITextureMgr
 {
 public:
 	TextureMgr(sdl::graphics::Renderer& i_renderer);
-	~TextureMgr() = default;
+	~TextureMgr();
 
 	TextureMgr(const TextureMgr&) = delete;
 	TextureMgr(TextureMgr&&) = delete;

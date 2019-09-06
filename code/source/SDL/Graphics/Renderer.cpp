@@ -1,10 +1,13 @@
 #include "SDL/Graphics/Renderer.h"
-#include "cpp-utils/Assert.h"
-#include "SDL_render.h"
+#include "SDL/Graphics/TextureMgr.h"
+#include "SDL/Graphics/Texture.h"
 
 #include "SDL/UI/Window.h"
+#include "SDL_render.h"
 
-#include "App/Graphics/ITexture.h"
+#include "cpp-utils/Assert.h"
+
+
 
 
 namespace sdl
@@ -25,10 +28,16 @@ Renderer::Renderer(ui::Window& i_window)
 
 Renderer::~Renderer() = default;
 
-void Renderer::Render(const app::graphics::ITexture& i_texture) const
+void Renderer::RenderTexture(TextureId i_textureId, int i_posX, int i_posY) const
 {
 	SDL_RenderClear(m_renderer.get());
-	i_texture.Render(0, 0);
+	const sdl::graphics::Texture* texture = m_textureMgr 
+		? m_textureMgr->_FindTextureById(i_textureId) 
+		: nullptr;
+	if ( texture )
+	{
+		texture->Render(i_posX, i_posY);
+	}
 	SDL_RenderPresent(m_renderer.get());
 }
 
@@ -54,6 +63,11 @@ const SDL_Renderer* Renderer::GetSDLRenderer() const
 	return m_renderer ? m_renderer.get() : nullptr;
 }
 
+
+void Renderer::SetTextureMgr(const sdl::graphics::TextureMgr* i_textureMgr)
+{
+	m_textureMgr = i_textureMgr;
+}
 
 } //namespace graphics
 } // namespace sdl

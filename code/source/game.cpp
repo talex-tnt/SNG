@@ -22,10 +22,7 @@ void Game::OnUpdate(std::chrono::milliseconds i_deltaTime)
 
 void Game::OnRender(app::graphics::RenderContext& i_context)
 {
-	if ( const app::graphics::ITexture* texture = i_context.GetTextureMgr().FindTextureById(m_textureId) )
-	{
-		i_context.GetRenderer().Render(*texture);
-	}
+	i_context.GetRenderer().RenderTexture(m_textureId, 0u, 0u);
 }
 
 }

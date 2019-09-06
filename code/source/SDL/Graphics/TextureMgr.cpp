@@ -23,6 +23,12 @@ TextureMgr::TextureMgr(sdl::graphics::Renderer& i_renderer)
 	: m_renderer(i_renderer)
 {
 	InitImageExt();
+	m_renderer.SetTextureMgr(this);
+}
+
+TextureMgr::~TextureMgr()
+{
+	m_renderer.SetTextureMgr(nullptr);
 }
 
 const sdl::graphics::Texture* TextureMgr::_FindTextureById(TextureId i_textureId) const
