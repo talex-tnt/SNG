@@ -6,7 +6,9 @@ project (App)
 file(GLOB_RECURSE HEADER_FILES "include/*.h")
 file(GLOB_RECURSE SOURCE_FILES "source/*.cpp")
 
-create_groups("${CMAKE_CURRENT_SOURCE_DIR}/include/App" "${HEADER_FILES}")
+
+# source_group("HELLO" FILES "D:/_gitarea/cpp/SNG/code/App/include/App/UI/IWindow.h")
+create_groups("${CMAKE_CURRENT_SOURCE_DIR}/include" "${HEADER_FILES}")
 create_groups("${CMAKE_CURRENT_SOURCE_DIR}/source" "${SOURCE_FILES}")
 
 add_library(${PROJECT_NAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
