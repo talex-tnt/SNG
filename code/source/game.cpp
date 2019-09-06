@@ -15,7 +15,7 @@ bool Game::OnInit(app::AppContext& i_appContext)
 	return true;
 }
 
-void Game::OnUpdate()
+void Game::OnUpdate(std::chrono::milliseconds i_deltaTime)
 {
 
 }

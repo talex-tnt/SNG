@@ -2,6 +2,19 @@
 #include "cpp-utils/Assert.h"
 #include "App/AppContext.h"
 #include "App/IAppDelegate.h"
+#include <chrono>
+
+
+namespace
+{
+std::chrono::milliseconds GetElapsed(std::chrono::steady_clock::time_point& lastTime)
+{
+	std::chrono::steady_clock::time_point current = std::chrono::steady_clock::now();
+	std::chrono::steady_clock::duration elapsed = current - lastTime;
+	lastTime = current;
+	return std::chrono::duration_cast< std::chrono::milliseconds >( elapsed );
+}
+}
 
 namespace app
 { 
@@ -33,13 +46,13 @@ void AppBase::Run()
 {
 	graphics::RenderContext& appContext = m_context->GetRenderContext();
 	DB_ASSERT_MSG(m_appDelegate, "Please call Init(..) first");
+	std::chrono::steady_clock::time_point lastTime = std::chrono::steady_clock::now();
 	while ( !m_quit )
 	{
+		const std::chrono::milliseconds elapsedTime = GetElapsed(lastTime);
 		ProcessEvents();
-		m_appDelegate->OnUpdate();
+		m_appDelegate->OnUpdate(elapsedTime);
 		m_appDelegate->OnRender(appContext);
-		//m_window->Update();
-		//m_window->Render();
 	}
 }
 

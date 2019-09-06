@@ -14,7 +14,7 @@ class Game : public app::IAppDelegate
 {
 public:
 	bool OnInit(app::AppContext& i_appContext) override;
-	void OnUpdate() override;;
+	void OnUpdate(std::chrono::milliseconds) override;
 	void OnRender(app::graphics::RenderContext& i_context) override;
 
 private:
