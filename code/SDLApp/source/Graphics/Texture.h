@@ -1,5 +1,4 @@
 #pragma once
-#include "App/Graphics/ITexture.h"
 #include <string>
 #include <functional>
 #include "App/Identifiers.h"
@@ -11,7 +10,7 @@ namespace sdl
 namespace graphics
 {
 
-class Texture : public app::graphics::ITexture
+class Texture
 {
 public:
 	Texture(const TexturePath& i_path, SDL_Renderer& i_renderer);
@@ -24,8 +23,8 @@ public:
 	Texture& operator=(Texture&&) = delete;
 
 
-	void Render(int x, int y) const override;
-	bool IsValid() const override;
+	void Render(int x, int y) const;
+	bool IsValid() const;
 
 private:
 	SDL_Renderer& m_renderer;

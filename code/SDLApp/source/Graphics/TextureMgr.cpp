@@ -1,7 +1,6 @@
 #include "TextureMgr.h"
 
 #include "App/Identifiers.h"
-#include "App/Graphics/ITexture.h"
 
 #include "Renderer.h"
 #include "Texture.h"
@@ -48,16 +47,6 @@ sdl::graphics::Texture* TextureMgr::_FindTextureById(TextureId i_textureId)
 	return const_cast< sdl::graphics::Texture * >( const_text );
 }
 
-app::graphics::ITexture* TextureMgr::FindTextureById(TextureId i_textureId)
-{
-	return _FindTextureById(i_textureId);
-}
-
-const app::graphics::ITexture* TextureMgr::FindTextureById(TextureId i_textureId) const
-{
-	return _FindTextureById(i_textureId);
-}
-
 TextureId TextureMgr::CreateTexture(TexturePath i_path)
 {
 	TextureId textureId;
@@ -70,7 +59,7 @@ TextureId TextureMgr::CreateTexture(TexturePath i_path)
 		const std::size_t hash = std::hash<TexturePath::ValueType> {}( i_path.GetValue() );
 		textureId = TextureId(hash);
 
-		const app::graphics::ITexture* prevTex = FindTextureById(textureId);
+		const sdl::graphics::Texture* prevTex = _FindTextureById(textureId);
 		DB_ASSERT_MSG(prevTex == nullptr, "Texture at path " << i_path << " was already created.");
 		if ( prevTex == nullptr)
 		{

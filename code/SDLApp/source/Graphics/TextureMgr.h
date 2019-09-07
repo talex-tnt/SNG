@@ -32,8 +32,6 @@ public:
 	TextureMgr& operator=(const TextureMgr&) = delete;
 	TextureMgr& operator=(TextureMgr&&) = delete;
 
-	const app::graphics::ITexture* FindTextureById(TextureId i_textureId) const override;
-	app::graphics::ITexture* FindTextureById(TextureId i_textureId) override;
 	TextureId CreateTexture(TexturePath i_path) override;
 
 

@@ -11,9 +11,6 @@ class ITextureMgr
 public:
 	virtual ~ITextureMgr() = default;
 	virtual TextureId CreateTexture(TexturePath i_path) = 0;
-	virtual const app::graphics::ITexture* FindTextureById(TextureId i_textureId) const = 0;
-	virtual app::graphics::ITexture* FindTextureById(TextureId i_textureId) = 0 ;
-
 };
 
 }

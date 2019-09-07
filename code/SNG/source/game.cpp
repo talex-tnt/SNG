@@ -1,6 +1,5 @@
 #include "Game.h"
 
-#include "App/Graphics/ITexture.h"
 #include "App/Graphics/RenderContext.h"
 #include "App/Graphics/ITextureMgr.h"
 #include "App/Graphics/IRenderer.h"
