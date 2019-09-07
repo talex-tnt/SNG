@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
 set(CMAKE_CXX_STANDARD 11)
 
+include(utils)
 project (SDLApp)
 
 file(GLOB_RECURSE HEADER_FILES "include/*.h")

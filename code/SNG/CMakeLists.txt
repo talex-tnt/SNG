@@ -1,6 +1,8 @@
 file(GLOB_RECURSE HEADER_FILES "include/*.h")
 file(GLOB_RECURSE SOURCE_FILES "source/*.cpp" "source/*.h")
 
+include(utils)
+
 add_executable(${PROJECT_NAME} 
     ${HEADER_FILES}
 	${SOURCE_FILES}
