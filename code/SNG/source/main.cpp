@@ -7,8 +7,8 @@ int main(int argc, char *argv[])
 {
 	std::unique_ptr<app::IApp> app = sng::AppFactory::CreateApp();
 	DB_ASSERT_MSG(app, "App creation failed.");
-	sng::Game game;
-	if ( app &&  app->Init(game) )
+	sng::Game appDelegate;
+	if ( app &&  app->Init(appDelegate) )
 	{
 		app->Run();
 		return EXIT_SUCCESS;
