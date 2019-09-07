@@ -1,10 +1,10 @@
-#include "SDL/Graphics/TextureMgr.h"
+#include "TextureMgr.h"
 
 #include "App/Identifiers.h"
 #include "App/Graphics/ITexture.h"
 
-#include "SDL/Graphics/Renderer.h"
-#include "SDL/Graphics/Texture.h"
+#include "Renderer.h"
+#include "Texture.h"
 
 #include "cpp-utils/Assert.h"
 

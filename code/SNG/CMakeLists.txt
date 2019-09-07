@@ -1,13 +1,13 @@
 file(GLOB_RECURSE HEADER_FILES "include/*.h")
-file(GLOB_RECURSE SOURCE_FILES "source/*.cpp")
+file(GLOB_RECURSE SOURCE_FILES "source/*.cpp" "source/*.h")
 
 add_executable(${PROJECT_NAME} 
     ${HEADER_FILES}
 	${SOURCE_FILES}
 )
 
-create_groups("${CMAKE_CURRENT_SOURCE_DIR}/include" "${HEADER_FILES}")
-create_groups("${CMAKE_CURRENT_SOURCE_DIR}/source" "${SOURCE_FILES}")
+create_groups("Header Files" "${CMAKE_CURRENT_SOURCE_DIR}/include" "${HEADER_FILES}")
+create_groups("Source Files" "${CMAKE_CURRENT_SOURCE_DIR}/source" "${SOURCE_FILES}")
 
 include_directories(
 	${COMMON_INCLUDE_DIRS}

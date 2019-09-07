@@ -1,4 +1,4 @@
-#include "SDL/Graphics/Texture.h"
+#include "Texture.h"
 #include "cpp-utils/Assert.h"
 
 #include "SDL.h"

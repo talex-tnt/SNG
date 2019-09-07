@@ -1,8 +1,8 @@
-#include "SDL/Graphics/Renderer.h"
-#include "SDL/Graphics/TextureMgr.h"
-#include "SDL/Graphics/Texture.h"
+#include "Renderer.h"
+#include "TextureMgr.h"
+#include "Texture.h"
 
-#include "SDL/UI/Window.h"
+#include "../UI/Window.h"
 #include "SDL_render.h"
 
 #include "cpp-utils/Assert.h"

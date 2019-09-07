@@ -3,7 +3,7 @@
 #include <iostream>
 #include "cpp-utils/Assert.h"
 #include "cpp-utils/Log.h"
-#include "SDL/UI/Window.h"
+#include "UI/Window.h"
 #include "App/Events.h"
 #include "App/AppContext.h"
 
