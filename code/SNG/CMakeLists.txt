@@ -10,12 +10,11 @@ create_groups("Header Files" "${CMAKE_CURRENT_SOURCE_DIR}/include" "${HEADER_FIL
 create_groups("Source Files" "${CMAKE_CURRENT_SOURCE_DIR}/source" "${SOURCE_FILES}")
 
 include_directories(
-	${COMMON_INCLUDE_DIRS}
 	${PROJECT_SOURCE_DIR}/code/SNG/include/
 )
 
-target_link_libraries(${PROJECT_NAME} 
-	${COMMON_LIBRARIES}
+target_link_libraries(${PROJECT_NAME}
+	${SO_LIBRARIES}
 	sub::cpp-utils
     App
     SDLApp

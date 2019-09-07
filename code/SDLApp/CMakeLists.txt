@@ -13,13 +13,13 @@ create_groups("Source Files" "${CMAKE_CURRENT_SOURCE_DIR}/source" "${SOURCE_FILE
 add_library(${PROJECT_NAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
 target_link_libraries(${PROJECT_NAME} 
-    ${COMMON_LIBRARIES}
+   	${SDL2_LIBRARY}
     cpp-utils
     App
 )
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC 
-    ${COMMON_INCLUDE_DIRS}
+    ${SDL2_INCLUDE_DIR}
     ${PROJECT_SOURCE_DIR}/include
 )
