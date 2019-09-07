@@ -1,5 +1,4 @@
 #pragma once
-#include "App/UI/IWindow.h"
 #include "App/Identifiers.h"
 #include <functional>
 #include <memory>
