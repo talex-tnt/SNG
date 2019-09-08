@@ -17,7 +17,6 @@ std::unique_ptr<app::AppContext> CreateAppContext(sdl::ui::IWindowProvider& i_wi
 
 namespace sng
 {
-
 std::unique_ptr<app::IApp> AppFactory::CreateApp(app::IAppDelegate& i_appDelegate)
 {
 	std::unique_ptr<sdl::App> app = std::make_unique<sdl::App>(std::make_unique<AppContextFactory>());
@@ -27,7 +26,6 @@ std::unique_ptr<app::IApp> AppFactory::CreateApp(app::IAppDelegate& i_appDelegat
 	}
 	return nullptr;
 }
-
 }
 
 namespace
@@ -51,5 +49,4 @@ std::unique_ptr<app::AppContext> AppContextFactory::CreateAppContext(sdl::ui::IW
 	DB_ASSERT_MSG(false, "AppContext Creation failed.");
 	return nullptr;
 }
-
 }
