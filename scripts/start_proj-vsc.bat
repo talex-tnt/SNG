@@ -1,2 +1,2 @@
 @echo off
-start %cd%/build-vsc/sng.sln
+start %cd%/builds/vsc/sng.sln
