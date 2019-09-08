@@ -1,9 +1,9 @@
 #include "App/AppBase.h"
-#include "cpp-utils/Assert.h"
 #include "App/AppContext.h"
 #include "App/IAppDelegate.h"
-#include <chrono>
 
+#include "cpp-utils/Assert.h"
+#include <chrono>
 
 namespace
 {

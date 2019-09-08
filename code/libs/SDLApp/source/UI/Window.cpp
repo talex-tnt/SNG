@@ -1,8 +1,6 @@
 #include "Window.h"
 #include "cpp-utils/Assert.h"
 
-#include "../Graphics/Renderer.h"
-#include "../Graphics/TextureMgr.h"
 #include "App/Graphics/ITextureMgr.h"
 #include <SDL.h>
 
@@ -28,9 +26,9 @@ Window::Window()
 		),
 		[] (SDL_Window* win) { SDL_DestroyWindow(win); })
 {
-
 	if ( m_window )
 	{
+#if false
 		m_renderer = std::make_unique<sdl::graphics::Renderer>(*this);
 		DB_ASSERT_MSG(m_renderer, "Renderer Not Initialized");
 		if ( m_renderer )
@@ -38,6 +36,7 @@ Window::Window()
 			sdl::graphics::Renderer* rend = m_renderer.get();
 			m_textureMgr = std::make_unique<sdl::graphics::TextureMgr>(*rend);
 		}
+#endif
 	}
 	else
 	{
@@ -56,26 +55,6 @@ SDL_Window* Window::GetSDLWindow()
 const SDL_Window* Window::GetSDLWindow() const
 {
 	return m_window ? m_window.get() : nullptr;
-}
-
-const app::graphics::IRenderer* Window::GetRenderer() const
-{
-	return m_renderer ? m_renderer.get() : nullptr;
-}
-
-app::graphics::IRenderer* Window::GetRenderer()
-{
-	return m_renderer ? m_renderer.get() : nullptr;
-}
-
-const app::graphics::ITextureMgr* Window::GetTextureMgr() const
-{
-	return m_textureMgr ? m_textureMgr.get() : nullptr;
-}
-
-app::graphics::ITextureMgr* Window::GetTextureMgr()
-{
-	return m_textureMgr ? m_textureMgr.get() : nullptr;
 }
 
 }

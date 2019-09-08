@@ -1,14 +1,15 @@
 #include "App/IApp.h"
+#include "App/AppContext.h"
 #include "cpp-utils/Assert.h"
 #include "AppFactory.h"
 #include "Game.h"
 
 int main(int argc, char *argv[])
 {
-	std::unique_ptr<app::IApp> app = sng::AppFactory::CreateApp();
-	DB_ASSERT_MSG(app, "App creation failed.");
 	sng::Game appDelegate;
-	if ( app &&  app->Init(appDelegate) )
+	std::unique_ptr<app::IApp> app = sng::AppFactory::CreateApp(appDelegate);
+	DB_ASSERT_MSG(app, "App creation failed.");
+	if ( app )
 	{
 		app->Run();
 		return EXIT_SUCCESS;

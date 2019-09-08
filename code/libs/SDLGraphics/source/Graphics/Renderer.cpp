@@ -1,13 +1,10 @@
-#include "Renderer.h"
-#include "TextureMgr.h"
+#include "SDL/Graphics/Renderer.h"
+#include "SDL/Graphics/TextureMgr.h"
 #include "Texture.h"
 
-#include "../UI/Window.h"
 #include "SDL_render.h"
-
+#include "SDL/UI/IWindowProvider.h"
 #include "cpp-utils/Assert.h"
-
-
 
 
 namespace sdl
@@ -17,9 +14,9 @@ namespace graphics
 const uint32_t k_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
 const int k_index = -1;
 
-Renderer::Renderer(ui::Window& i_window)
+Renderer::Renderer(sdl::ui::IWindowProvider& i_windowProvider)
 	: m_renderer(
-		SDL_CreateRenderer(i_window.GetSDLWindow(), k_index, k_flags),
+		SDL_CreateRenderer(i_windowProvider.GetSDLWindow(), k_index, k_flags),
 		[] (SDL_Renderer* renderer) { SDL_DestroyRenderer(renderer); })
 {
 	DB_ASSERT_MSG(m_renderer, "Could Not Create the SDL_Renderer");

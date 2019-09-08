@@ -14,3 +14,9 @@ function(create_groups group_name current_src_dir files )
         source_group("${GROUP}" FILES "${FILE}")
     endforeach()
 endfunction()
+
+function(get_folder_name folder_name)
+    get_filename_component(name ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+    set (${folder_name} ${name} PARENT_SCOPE)
+endfunction()
+

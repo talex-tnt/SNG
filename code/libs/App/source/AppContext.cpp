@@ -1,10 +1,14 @@
 #include "App/AppContext.h"
-
+#include "App/Graphics/IRenderer.h"
+#include "App/Graphics/ITextureMgr.h"
 namespace app
 { 
 
-AppContext::AppContext(graphics::IRenderer& i_renderer, graphics::ITextureMgr& i_textureMgr)
-	: m_renderContext(i_renderer, i_textureMgr)
+AppContext::AppContext(
+	std::unique_ptr < graphics::IRenderer> i_renderer, 
+	std::unique_ptr < graphics::ITextureMgr> i_textureMgr
+)
+	: m_renderContext(std::move(i_renderer), std::move(i_textureMgr))
 {
 
 }

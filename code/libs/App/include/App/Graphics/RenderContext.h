@@ -12,8 +12,8 @@ class RenderContext
 {
 public:
 	RenderContext(
-		graphics::IRenderer& i_renderer,
-		graphics::ITextureMgr& i_textureMgr
+		std::unique_ptr<graphics::IRenderer> i_renderer,
+		std::unique_ptr<graphics::ITextureMgr> i_textureMgr
 	);
 	~RenderContext();
 	graphics::IRenderer& GetRenderer();
@@ -23,8 +23,8 @@ public:
 	const graphics::ITextureMgr& GetTextureMgr() const;
 
 private:
-	graphics::IRenderer& m_renderer;
-	graphics::ITextureMgr& m_textureMgr;
+	std::unique_ptr<graphics::IRenderer> m_renderer;
+	std::unique_ptr<graphics::ITextureMgr> m_textureMgr;
 };
 
 }

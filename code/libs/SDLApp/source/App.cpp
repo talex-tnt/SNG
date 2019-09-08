@@ -9,7 +9,11 @@
 
 namespace sdl
 { 
-App::App() = default;
+App::App(std::unique_ptr<IAppContextFactory> i_appContextDelegate)
+	: m_appContextDelegate(std::move(i_appContextDelegate))
+{ 
+
+}
 
 App::~App()
 {
@@ -40,6 +44,11 @@ void App::ProcessEvents()
 	{
 		_OnEvent(e);
 	}
+}
+
+std::unique_ptr<app::AppContext> App::CreateAppContext() const
+{
+	return m_appContextDelegate ? m_appContextDelegate->CreateAppContext(*m_window) : nullptr;
 }
 
 void App::_OnEvent(const SDL_Event& e)
@@ -80,17 +89,6 @@ void App::_OnEvent(const SDL_Event& e)
 	//DB_ASSERT_MSG(false, "Unhandled SDL Event: " + std::to_string(e.type));
 	break;
 	}
-}
-
-std::unique_ptr<app::AppContext> App::CreateAppContext() const
-{
-	app::graphics::IRenderer* renderer = m_window->GetRenderer();
-	app::graphics::ITextureMgr* textureMgr = m_window->GetTextureMgr();
-	if (renderer && textureMgr)
-	{
-		return std::make_unique<app::AppContext>(*renderer, *textureMgr);
-	}
-	return nullptr;
 }
 
 }

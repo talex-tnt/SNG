@@ -9,8 +9,8 @@ class AppContext
 {
 public:
 	AppContext(
-		graphics::IRenderer& i_renderer,
-		graphics::ITextureMgr& i_textureMgr
+		std::unique_ptr<graphics::IRenderer> i_renderer,
+		std::unique_ptr<graphics::ITextureMgr> i_textureMgr
 	);
 	~AppContext();
 

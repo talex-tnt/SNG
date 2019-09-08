@@ -17,7 +17,7 @@ namespace sdl
 {
 namespace ui
 {
-class Window;
+class IWindowProvider;
 }
 namespace graphics
 {
@@ -26,7 +26,7 @@ class TextureMgr;
 class Renderer : public app::graphics::IRenderer
 {
 public:
-	Renderer(ui::Window& i_window);
+	Renderer(sdl::ui::IWindowProvider& i_windowProvider);
 	~Renderer();
 
 	Renderer(const Renderer&) = delete;
