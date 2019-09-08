@@ -20,3 +20,15 @@ function(get_folder_name folder_name)
     set (${folder_name} ${name} PARENT_SCOPE)
 endfunction()
 
+
+function(collect_files headers, sources)
+    file(GLOB_RECURSE h "include/*.h" "include/*.inl")
+    file(GLOB_RECURSE s "source/*.cpp" "source/*.h")
+    set (${headers} ${h} PARENT_SCOPE)
+    set (${sources} ${s} PARENT_SCOPE)
+endfunction()
+
+function(group_files headers, sources)
+    create_groups("Header Files" "${CMAKE_CURRENT_SOURCE_DIR}/include" "${headers}")
+    create_groups("Source Files" "${CMAKE_CURRENT_SOURCE_DIR}/source" "${sources}")
+endfunction()

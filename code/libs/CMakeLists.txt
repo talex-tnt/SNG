@@ -10,5 +10,4 @@ set_target_properties (SDLApp PROPERTIES FOLDER libs)
 set_target_properties (SDLGraphics PROPERTIES FOLDER libs)
 set_target_properties (SDLInterfaces-h PROPERTIES FOLDER libs)
 
-
 set_target_properties (cpp-utils-h PROPERTIES FOLDER libs)
