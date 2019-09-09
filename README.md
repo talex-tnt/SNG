@@ -7,17 +7,17 @@ This project depends on:
 Please install **CMake** first and download **SDL2-2.0.9**.
 
 The *scripts* folder contains the following scripts:  
-*scripts* \ **gen_proj-vsc.bat** generates Visual Studio project files in *scripts* \ **build-vsc**  
-*scripts* \ **gen_proj-llvm.bat** generates Visual Studio project files in *scripts* \ **build-llvm**  
-*scripts* \ **clean_proj.bat** cleans up *scripts* \ **build-%%%** folders containing the project files.  
-*scripts* \ **gen_SDL_proj.bat** generates Visual Studio project files for **SDL2-2.0.9**.  
+*scripts* \ **gen_proj-vsc.bat** generates Visual Studio project files in *scripts* \ **builds/vsc**  
+*scripts* \ **gen_proj-llvm.bat** generates Visual Studio project files in *scripts* \ **builds/llvm**  
+*scripts* \ **clean_proj.bat** cleans up *scripts* \ **builds/** folder containing the project files.  
+*scripts* \ **gen_proj-SDL.bat** generates Visual Studio project files for **SDL2-2.0.9**.  
 Fix this script for supporting a different version.  
 At the moment it expects a folder:  
 *libs* \ **SDL2-2.0.9**   
 containing all the **SDL** files.
 
 You need to extract **SDL** files there, 
-run *scripts* \ **gen_SDL_proj.bat** 
+run *scripts* \ **gen_proj-SDL.bat** 
 open *Visual Studio* and **build** the project.
 
 Then create the folder:
@@ -27,8 +27,8 @@ and copy the **SDL2.dll** file in it after the SDL2-2.0.9 is built.
 
 You can then run:
 *scripts* \ **gen_proj-vsc.bat**
-to generate the *Visual Studio* project inside *scripts* \ **build-vsc**  
-open the solution in it and build it.
+to generate the *Visual Studio* project inside *scripts* \ **builds/vsc**  
+open the solution in it by running **start_proj-vsc.bat** and build it.
 
 
 If you want to build with **LLVM/Clang**  
@@ -37,5 +37,6 @@ http://releases.llvm.org/download.html
 and the **LLVM Toolchain Extension** for *Visual Studio 2017*:  
 https://marketplace.visualstudio.com/items?itemName=LLVMExtensions.llvm-toolchain  
 Then run:  
-*scripts* \ **gen_SDL_proj-llvm.bat** that will generates *Visual Studio* project files under
-*scripts* \ **build-llvm** with **llvm** as **target**.
+*scripts* \ **gen_proj-llvm.bat** that will generates *Visual Studio* project files under
+*scripts* \ **builds/llvm** with **llvm** as **target**.
+To open the solution run: **start_proj-llvm.bat**
