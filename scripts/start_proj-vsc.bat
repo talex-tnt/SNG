@@ -1,2 +1,3 @@
 @echo off
-start %cd%/builds/vsc/sng.sln
+call ./cmd/CreateAndStartProject vsc
+rem pause

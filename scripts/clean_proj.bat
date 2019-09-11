@@ -1,2 +1,2 @@
 @echo off
-rmdir /s /q builds/*
+rmdir /s /q builds

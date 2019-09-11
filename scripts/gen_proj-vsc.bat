@@ -27,5 +27,7 @@ set SDL_LIBS=%SDL_LIBRARY_PATH%\SDL2.lib;%SDL_LIBRARY_PATH%\SDL2main.lib;Imm32.l
 cmake -G "Visual Studio 15 2017 Win64" ../../.. -DSDL2_INCLUDE_DIR=%SDL_INCLUDE_PATH% -DSDL2_LIBRARY=%SDL_LIBS%
 
 cd %CURRENT_DIR%/cmd
-Notification.bat "Visual Studio Solution is Ready" "VSC Compiler"
+call Notification.bat "Visual Studio Solution is Ready" "VSC Compiler"
+
+echo CMake: Project Generated
 rem pause

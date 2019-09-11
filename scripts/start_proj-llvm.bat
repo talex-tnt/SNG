@@ -1,2 +1,3 @@
 @echo off
-start %cd%/builds/llvm/sng.sln
+call ./cmd/CreateAndStartProject llvm
+rem pause
