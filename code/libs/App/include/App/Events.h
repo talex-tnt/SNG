@@ -1,5 +1,4 @@
 #pragma once
-#include "App/IApp.h"
 #include <memory>
 #include <string>
 

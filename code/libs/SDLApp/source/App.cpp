@@ -5,19 +5,19 @@
 #include "cpp-utils/Log.h"
 #include "UI/Window.h"
 #include "App/Events.h"
-#include "App/AppContext.h"
 
 namespace sdl
 { 
-App::App(std::unique_ptr<IAppContextFactory> i_appContextDelegate)
-	: m_appContextDelegate(std::move(i_appContextDelegate))
-{ 
-
-}
+App::App() : m_delegate(nullptr) { }
 
 App::~App()
 {
 	SDL_Quit();
+}
+
+void App::SetDelegate(IAppDelegate* i_delegate)
+{
+	m_delegate = i_delegate;
 }
 
 bool App::OnInit()
@@ -33,6 +33,10 @@ bool App::OnInit()
 	{
 		m_window = std::make_unique<sdl::ui::Window>();
 		initialized = true;
+		if (m_delegate)
+		{
+			m_delegate->OnInit(*m_window);
+		}
 	}
 	return initialized;
 }
@@ -44,11 +48,6 @@ void App::ProcessEvents()
 	{
 		_OnEvent(e);
 	}
-}
-
-std::unique_ptr<app::AppContext> App::CreateAppContext() const
-{
-	return m_appContextDelegate ? m_appContextDelegate->CreateAppContext(*m_window) : nullptr;
 }
 
 void App::_OnEvent(const SDL_Event& e)
