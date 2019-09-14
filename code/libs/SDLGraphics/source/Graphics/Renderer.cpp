@@ -2,10 +2,17 @@
 #include "SDL/Graphics/TextureMgr.h"
 #include "Texture.h"
 
-#include "SDL_render.h"
 #include "SDL/UI/IWindowProvider.h"
 #include "cpp-utils/Assert.h"
 
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wpragma-pack"
+#endif
+#	include <SDL_render.h>
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
 
 namespace sdl
 {

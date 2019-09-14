@@ -1,10 +1,19 @@
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wpragma-pack"
+#endif
+#	include <SDL.h>
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
+
 #include "SDL/App.h"
-#include "SDL.h"
 #include <iostream>
 #include "cpp-utils/Assert.h"
 #include "cpp-utils/Log.h"
 #include "UI/Window.h"
 #include "App/Events.h"
+
 
 namespace sdl
 { 

@@ -6,8 +6,16 @@
 
 #include "cpp-utils/Assert.h"
 
-#include "SDL.h"
-#include <SDL_image.h>
+#if defined(__clang__)
+#	pragma clang diagnostic push
+#	pragma clang diagnostic ignored "-Wpragma-pack"
+#endif
+#	include <SDL.h>
+#	include <SDL_image.h>
+#if defined(__clang__)
+#	pragma clang diagnostic pop
+#endif
+
 #include <type_traits>
 
 
