@@ -6,6 +6,7 @@ add_subdirectory(AppIdentifiers)
 
 add_subdirectory(SDLApp)
 add_subdirectory(SDLGraphics)
+add_subdirectory(SDLGraphicsOpenGL)
 add_subdirectory(SDLInterfaces)
 
 add_subdirectory(CppUtils/code)
@@ -16,6 +17,7 @@ set_target_properties (AppIdentifiers-h PROPERTIES FOLDER libs/App)
 
 set_target_properties (SDLApp PROPERTIES FOLDER libs/SDL)
 set_target_properties (SDLGraphics PROPERTIES FOLDER libs/SDL)
+set_target_properties (SDLGraphicsOpenGL PROPERTIES FOLDER libs/SDL)
 set_target_properties (SDLInterfaces-h PROPERTIES FOLDER libs/SDL)
 
 set_target_properties (cpp-utils-h PROPERTIES FOLDER libs)
