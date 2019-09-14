@@ -29,7 +29,7 @@ class TextureMgr;
 
 namespace ui
 {
-class Window : public IWindowProvider
+class Window final: public IWindowProvider
 {
 public:
 	Window();
@@ -42,7 +42,7 @@ public:
 	Window& operator=(Window&&) = delete;
 
 	SDL_Window* GetSDLWindow() override;
-	const SDL_Window* GetSDLWindow() const override; 
+	const SDL_Window* GetSDLWindow() const override;
 
 private:
 
