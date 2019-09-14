@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "App/Graphics/RenderContext.h"
+#include "Graphics/RenderContext.h"
 
 namespace sng
 {

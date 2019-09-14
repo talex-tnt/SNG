@@ -1,6 +1,6 @@
 #include "GameContext.h"
-#include "App/Graphics/IRenderer.h"
-#include "App/Graphics/ITextureMgr.h"
+#include "App/Interfaces/Graphics/IRenderer.h"
+#include "App/Interfaces/Graphics/ITextureMgr.h"
 
 namespace sng
 { 

@@ -1,5 +1,5 @@
 #pragma once
-#include "App/Graphics/IRenderer.h"
+#include "App/Interfaces/Graphics/IRenderer.h"
 #include <functional>
 #include <memory>
 

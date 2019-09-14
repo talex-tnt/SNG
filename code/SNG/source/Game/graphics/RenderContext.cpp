@@ -1,6 +1,6 @@
-#include "App/Graphics/RenderContext.h"
-#include "App/Graphics/IRenderer.h"
-#include "App/Graphics/ITextureMgr.h"
+#include "RenderContext.h"
+#include "App/Interfaces/Graphics/IRenderer.h"
+#include "App/Interfaces/Graphics/ITextureMgr.h"
 
 namespace app
 {

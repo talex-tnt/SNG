@@ -1,5 +1,5 @@
 #pragma once
-#include "App/Graphics/ITextureMgr.h"
+#include "App/Interfaces/Graphics/ITextureMgr.h"
 #include "App/Identifiers.h"
 
 #include <unordered_map>

@@ -1,7 +1,7 @@
 #include "Window.h"
 #include "cpp-utils/Assert.h"
 
-#include "App/Graphics/ITextureMgr.h"
+#include "App/Interfaces/Graphics/ITextureMgr.h"
 #if defined(__clang__)
 #	pragma clang diagnostic push
 #	pragma clang diagnostic ignored "-Wpragma-pack"
