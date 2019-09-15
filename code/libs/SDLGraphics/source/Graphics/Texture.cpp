@@ -51,8 +51,8 @@ void Texture::Render(int x, int y) const
 	SDL_Rect dst;
 	dst.x = x;
 	dst.y = y;
-	SDL_QueryTexture(m_texture.get(), NULL, NULL, &dst.w, &dst.h);
-	SDL_RenderCopy(&m_renderer, m_texture.get(), NULL, &dst);
+	SDL_QueryTexture(m_texture.get(), nullptr, nullptr, &dst.w, &dst.h);
+	SDL_RenderCopy(&m_renderer, m_texture.get(), nullptr, &dst);
 }
 
 bool Texture::IsValid() const

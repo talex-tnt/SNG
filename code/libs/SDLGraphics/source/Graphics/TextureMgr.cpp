@@ -37,7 +37,7 @@ TextureMgr::~TextureMgr()
 	m_renderer.SetTextureMgr(nullptr);
 }
 
-const sdl::graphics::Texture* TextureMgr::_FindTextureById(TextureId i_textureId) const
+const sdl::graphics::Texture* TextureMgr::FindTextureById(TextureId i_textureId) const
 {
 	auto it = m_textures.find(i_textureId);
 	if ( it != m_textures.end() )
@@ -47,10 +47,10 @@ const sdl::graphics::Texture* TextureMgr::_FindTextureById(TextureId i_textureId
 	return nullptr;
 }
 
-sdl::graphics::Texture* TextureMgr::_FindTextureById(TextureId i_textureId)
+sdl::graphics::Texture* TextureMgr::FindTextureById(TextureId i_textureId)
 {
 	const TextureMgr& const_this = static_cast< const TextureMgr& >( *this );
-	const sdl::graphics::Texture* const_text = const_this._FindTextureById(i_textureId);
+	const sdl::graphics::Texture* const_text = const_this.FindTextureById(i_textureId);
 	return const_cast< sdl::graphics::Texture * >( const_text );
 }
 
@@ -66,7 +66,7 @@ TextureId TextureMgr::CreateTexture(TexturePath i_path)
 		const std::size_t hash = std::hash<TexturePath::ValueType> {}( i_path.GetValue() );
 		textureId = TextureId(hash);
 
-		const sdl::graphics::Texture* prevTex = _FindTextureById(textureId);
+		const sdl::graphics::Texture* prevTex = FindTextureById(textureId);
 		DB_ASSERT_MSG(prevTex == nullptr, "Texture at path " << i_path << " was already created.");
 		if ( prevTex == nullptr)
 		{

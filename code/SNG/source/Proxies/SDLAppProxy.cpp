@@ -35,22 +35,29 @@ bool SDLAppProxy::OnInit(sdl::ui::IWindowProvider& i_windowProvider)
 
 std::unique_ptr<sng::GameContext> SDLAppProxy::CreateAppContext(sdl::ui::IWindowProvider& i_windowProvider)
 {
-	//using RendererT = sdl::graphics::Renderer;
+#define USE_OPENGL_RENDERER 0
+#if USE_OPENGL_RENDERER
 	using RendererT = sdl::graphics::opengl::Renderer;
+#else
+	using RendererT = sdl::graphics::Renderer;
+#endif
 	std::unique_ptr<RendererT> renderer =
 		std::make_unique<RendererT>(i_windowProvider);
 	DB_ASSERT_MSG(renderer, "Renderer Not Initialized");
 	if ( renderer )
 	{
+#if USE_OPENGL_RENDERER
 		return std::make_unique<sng::GameContext>(std::move(renderer), nullptr);
-		//RendererT* rend = renderer.get();
-		//std::unique_ptr<sdl::graphics::TextureMgr> textureMgr =
-		//	std::make_unique<sdl::graphics::TextureMgr>(*rend);
-		//DB_ASSERT_MSG(textureMgr, "TextureMgr Creation failed.");
-		//if ( textureMgr )
-		//{
-		//	return std::make_unique<sng::GameContext>(std::move(renderer), std::move(textureMgr));
-		//}
+#else
+		RendererT* rend = renderer.get();
+		std::unique_ptr<sdl::graphics::TextureMgr> textureMgr =
+			std::make_unique<sdl::graphics::TextureMgr>(*rend);
+		DB_ASSERT_MSG(textureMgr, "TextureMgr Creation failed.");
+		if ( textureMgr )
+		{
+			return std::make_unique<sng::GameContext>(std::move(renderer), std::move(textureMgr));
+		}
+#endif
 	}
 	DB_ASSERT_MSG(false, "GameContext Creation failed.");
 	return nullptr;

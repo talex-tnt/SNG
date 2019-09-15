@@ -18,8 +18,8 @@ Game::~Game() = default;
 bool Game::OnInit(std::unique_ptr<GameContext> i_context)
 {
 	m_context = std::move(i_context);
-	//app::graphics::ITextureMgr& textureMgr = m_context->GetRenderContext().GetTextureMgr();
-	//m_textureId = textureMgr.CreateTexture(TexturePath("images/SDL_Logo.png"));
+	app::graphics::ITextureMgr& textureMgr = m_context->GetRenderContext().GetTextureMgr();
+	m_textureId = textureMgr.CreateTexture(TexturePath("images/SDL_Logo.png"));
 	return true;
 }
 

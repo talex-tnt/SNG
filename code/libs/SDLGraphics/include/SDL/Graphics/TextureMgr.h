@@ -35,8 +35,8 @@ public:
 	TextureId CreateTexture(TexturePath i_path) override;
 
 
-	const sdl::graphics::Texture* _FindTextureById(TextureId i_textureId) const;
-	sdl::graphics::Texture* _FindTextureById(TextureId i_textureId);
+	const sdl::graphics::Texture* FindTextureById(TextureId i_textureId) const;
+	sdl::graphics::Texture* FindTextureById(TextureId i_textureId);
 
 private:
 	sdl::graphics::Renderer& m_renderer;
