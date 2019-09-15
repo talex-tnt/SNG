@@ -1,0 +1,7 @@
+#version 140
+
+out vec4 m_fragment; 
+
+void main() { 
+	m_fragment = vec4( 1.0, 0.0, 0.0, 1.0 ); 
+}
