@@ -21,7 +21,7 @@ namespace sdl
 namespace ui
 {
 
-Window::Window()
+Window::Window(std::uint32_t i_flags)
 	: m_window(
 		SDL_CreateWindow(
 			"SDL2Test",
@@ -29,23 +29,11 @@ Window::Window()
 			SDL_WINDOWPOS_UNDEFINED,
 			640,
 			480,
-			0
+			i_flags
 		),
 		[] (SDL_Window* win) { SDL_DestroyWindow(win); })
 {
-	if ( m_window )
-	{
-#if false
-		m_renderer = std::make_unique<sdl::graphics::Renderer>(*this);
-		DB_ASSERT_MSG(m_renderer, "Renderer Not Initialized");
-		if ( m_renderer )
-		{
-			sdl::graphics::Renderer* rend = m_renderer.get();
-			m_textureMgr = std::make_unique<sdl::graphics::TextureMgr>(*rend);
-		}
-#endif
-	}
-	else
+	if ( !m_window )
 	{
 		DB_ASSERT_MSG(false, SDL_GetError());
 	}

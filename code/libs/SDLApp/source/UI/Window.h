@@ -32,7 +32,7 @@ namespace ui
 class Window final: public IWindowProvider
 {
 public:
-	Window();
+	Window(std::uint32_t i_flags = 0u);
 	~Window();
 
 	Window(const Window&) = delete;

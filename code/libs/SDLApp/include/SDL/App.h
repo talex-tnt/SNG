@@ -13,6 +13,11 @@ class Window;
 class App : public app::AppBase
 {
 public:
+	enum class InitFlag {
+		k_none = 0,
+		k_openGL
+	};
+	App(InitFlag i_initFlags);
 	App();
 	~App();
 
@@ -32,6 +37,7 @@ private:
 	void _OnEvent(const SDL_Event& e);
 	std::unique_ptr<sdl::ui::Window> m_window;
 	IAppDelegate* m_delegate;
+	InitFlag m_initFlags;
 };
 
 }

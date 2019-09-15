@@ -2,16 +2,7 @@
 #include "App/Interfaces/Graphics/IRenderer.h"
 #include <functional>
 #include <memory>
-
-struct SDL_Renderer;
-
-namespace app
-{
-namespace graphics
-{
-class ITextureMgr;
-}
-}
+#include "ShaderSupport.h"
 
 namespace sdl
 {
@@ -21,7 +12,9 @@ class IWindowProvider;
 }
 namespace graphics
 {
-class TextureMgr;
+
+namespace opengl
+{
 
 class Renderer : public app::graphics::IRenderer
 {
@@ -39,16 +32,16 @@ public:
 	void EndRendering() override;
 	bool Init();
 
-	const SDL_Renderer* GetSDLRenderer() const;
-	SDL_Renderer* GetSDLRenderer();
-
-	void SetTextureMgr(const sdl::graphics::TextureMgr* i_textureMgr);
-
 private:
-	using RendererUnPtr = std::unique_ptr<SDL_Renderer, std::function<void(SDL_Renderer*)>>;
-	RendererUnPtr m_renderer;
-	const sdl::graphics::TextureMgr* m_textureMgr;
+	bool m_isOpenGLInitialized;
+	sdl::ui::IWindowProvider& m_windowProvider;
+	typedef void SDL_GLContext;
+	using GLContextUnPtr = std::unique_ptr<SDL_GLContext, std::function<void(SDL_GLContext*)>>;
+	GLContextUnPtr m_glContext;
+	shader_support::RenderDataContext m_renderDataContext;
+
 };
 
+}
 }
 }

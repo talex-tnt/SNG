@@ -14,10 +14,18 @@
 #include "UI/Window.h"
 #include "App/Events.h"
 
+namespace {
+static const  std::string k_opengl = "opengl";
+}
 
 namespace sdl
 { 
-App::App() : m_delegate(nullptr) { }
+App::App() : m_delegate(nullptr), m_initFlags(InitFlag::k_none) { }
+
+App::App(InitFlag i_initFlags) : m_delegate(nullptr), m_initFlags(i_initFlags)
+{
+
+}
 
 App::~App()
 {
@@ -32,15 +40,28 @@ void App::SetDelegate(IAppDelegate* i_delegate)
 bool App::OnInit()
 {
 	bool initialized = false;
-	if ( SDL_Init(SDL_INIT_VIDEO) < 0 )
+	std::uint32_t flags = 0u;
+	switch ( m_initFlags )
+	{
+	case sdl::App::InitFlag::k_none: break;
+	case sdl::App::InitFlag::k_openGL:
+	flags = flags | SDL_WINDOW_OPENGL;
+	break;
+	}
+	if ( SDL_Init(SDL_INIT_VIDEO | flags) < 0 )
 	{
 		DB_LOG("SDL_Init Error: " << SDL_GetError());
 		DB_ASSERT_MSG(false, SDL_GetError());
+		
 		initialized = false;
 	}
 	else
 	{
-		m_window = std::make_unique<sdl::ui::Window>();
+		if ( m_initFlags == sdl::App::InitFlag::k_openGL )
+		{
+			SDL_SetHint(SDL_HINT_RENDER_DRIVER, k_opengl.c_str());
+		}
+		m_window = std::make_unique<sdl::ui::Window>(flags);
 		initialized = true;
 		if (m_delegate)
 		{

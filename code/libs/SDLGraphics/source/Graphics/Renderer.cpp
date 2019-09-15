@@ -42,6 +42,10 @@ void Renderer::RenderTexture(TextureId i_textureId, int i_posX, int i_posY) cons
 	{
 		texture->Render(i_posX, i_posY);
 	}
+}
+
+void Renderer::EndRendering()
+{
 	SDL_RenderPresent(m_renderer.get());
 }
 

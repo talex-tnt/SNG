@@ -11,6 +11,7 @@ class IRenderer
 public:
 	virtual ~IRenderer() = default;
 	virtual void RenderTexture(TextureId i_texture, int i_posX, int i_posY) const = 0;
+	virtual void EndRendering() = 0;
 };
 
 }
