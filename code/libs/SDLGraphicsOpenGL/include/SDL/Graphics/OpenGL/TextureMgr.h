@@ -17,6 +17,8 @@ namespace sdl
 {
 namespace graphics
 {
+namespace opengl
+{
 class Renderer;
 class Texture;
 
@@ -44,8 +46,7 @@ private:
 	using TexturePtr = std::unique_ptr<Texture>;
 	using TextureMap = std::unordered_map<TextureId, TexturePtr, TextureId::Hasher>;
 	TextureMap m_textures;
-
 };
-
+}
 }
 }

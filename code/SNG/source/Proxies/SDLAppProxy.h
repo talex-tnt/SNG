@@ -21,8 +21,6 @@ public:
 	bool OnInit(sdl::ui::IWindowProvider&) override;
 	
 private:
-	std::unique_ptr<GameContext> CreateAppContext(sdl::ui::IWindowProvider& i_windowProvider);
-private:
 	Game m_game;
 };
 }

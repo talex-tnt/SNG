@@ -42,12 +42,12 @@ public:
 	const SDL_Renderer* GetSDLRenderer() const;
 	SDL_Renderer* GetSDLRenderer();
 
-	void SetTextureMgr(const sdl::graphics::TextureMgr* i_textureMgr);
+	void SetTextureMgr(const TextureMgr* i_textureMgr);
 
 private:
 	using RendererUnPtr = std::unique_ptr<SDL_Renderer, std::function<void(SDL_Renderer*)>>;
 	RendererUnPtr m_renderer;
-	const sdl::graphics::TextureMgr* m_textureMgr;
+	const TextureMgr* m_textureMgr;
 };
 
 }

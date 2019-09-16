@@ -1,7 +1,8 @@
-#include "SDL/Graphics/TextureMgr.h"
+#include "SDL/Graphics/OpenGL/TextureMgr.h"
+#include "SDL/Graphics/OpenGL/Renderer.h"
+
 #include "App/Identifiers.h"
 
-#include "SDL/Graphics/Renderer.h"
 #include "Texture.h"
 
 #include "cpp-utils/Assert.h"
@@ -12,6 +13,7 @@
 #endif
 #	include <SDL.h>
 #	include <SDL_image.h>
+#	include <SDL_opengl.h>
 #if defined(__clang__)
 #	pragma clang diagnostic pop
 #endif
@@ -22,11 +24,14 @@ namespace sdl
 {
 namespace graphics
 {
+namespace opengl
+{
 
 TextureMgr::TextureMgr(Renderer& i_renderer)
 	: m_renderer(i_renderer)
 {
 	InitImageExt();
+	glEnable(GL_TEXTURE_2D);
 	m_renderer.SetTextureMgr(this);
 }
 
@@ -55,18 +60,17 @@ Texture* TextureMgr::FindTextureById(TextureId i_textureId)
 TextureId TextureMgr::CreateTexture(TexturePath i_path)
 {
 	TextureId textureId;
-	SDL_Renderer* renderer = m_renderer.GetSDLRenderer();
-	TexturePtr texture = std::make_unique<Texture>(i_path, *renderer);
-	
+	TexturePtr texture = std::make_unique<Texture>(i_path);
+
 	DB_ASSERT_MSG(texture->IsValid(), "Couldn't create the texture at path " << i_path);
-	if (texture->IsValid())
+	if ( texture->IsValid() )
 	{
 		const std::size_t hash = std::hash<TexturePath::ValueType> {}( i_path.GetValue() );
 		textureId = TextureId(hash);
 
 		const Texture* prevTex = FindTextureById(textureId);
 		DB_ASSERT_MSG(prevTex == nullptr, "Texture at path " << i_path << " was already created.");
-		if ( prevTex == nullptr)
+		if ( prevTex == nullptr )
 		{
 			m_textures.emplace(textureId, std::move(texture));
 		}
@@ -83,5 +87,7 @@ bool TextureMgr::InitImageExt()
 	DB_ASSERT_MSG(result, SDL_GetError());
 	return result;
 }
+
+} // namespace opengl
 } // namespace graphics
 } // namespace sdl

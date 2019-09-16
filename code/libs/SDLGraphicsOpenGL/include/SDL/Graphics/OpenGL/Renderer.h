@@ -15,6 +15,7 @@ namespace graphics
 
 namespace opengl
 {
+class TextureMgr;
 
 class Renderer : public app::graphics::IRenderer
 {
@@ -30,9 +31,12 @@ public:
 
 	void RenderTexture(TextureId i_textureId, int i_posX, int i_posY) const override;
 	void EndRendering() override;
-	bool Init();
+
+	void SetTextureMgr(const TextureMgr* i_textureMgr);
 
 private:
+	bool Init(sdl::ui::IWindowProvider& i_windowProvider);
+
 	bool m_isOpenGLInitialized;
 	sdl::ui::IWindowProvider& m_windowProvider;
 	typedef void SDL_GLContext;
@@ -40,6 +44,7 @@ private:
 	GLContextUnPtr m_glContext;
 	shader_support::RenderDataContext m_renderDataContext;
 
+	const TextureMgr* m_textureMgr;
 };
 
 }

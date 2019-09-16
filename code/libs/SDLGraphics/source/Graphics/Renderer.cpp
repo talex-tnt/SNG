@@ -35,7 +35,7 @@ Renderer::~Renderer() = default;
 void Renderer::RenderTexture(TextureId i_textureId, int i_posX, int i_posY) const
 {
 	SDL_RenderClear(m_renderer.get());
-	const sdl::graphics::Texture* texture = m_textureMgr 
+	const Texture* texture = m_textureMgr 
 		? m_textureMgr->FindTextureById(i_textureId) 
 		: nullptr;
 	if ( texture )
@@ -72,7 +72,7 @@ const SDL_Renderer* Renderer::GetSDLRenderer() const
 }
 
 
-void Renderer::SetTextureMgr(const sdl::graphics::TextureMgr* i_textureMgr)
+void Renderer::SetTextureMgr(const TextureMgr* i_textureMgr)
 {
 	m_textureMgr = i_textureMgr;
 }

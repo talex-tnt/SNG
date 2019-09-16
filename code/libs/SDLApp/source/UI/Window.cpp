@@ -27,8 +27,8 @@ Window::Window(std::uint32_t i_flags)
 			"SDL2Test",
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
-			640,
-			480,
+			1280,
+			1024,
 			i_flags
 		),
 		[] (SDL_Window* win) { SDL_DestroyWindow(win); })
