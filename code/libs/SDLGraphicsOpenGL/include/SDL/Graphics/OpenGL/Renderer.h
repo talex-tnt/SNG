@@ -1,5 +1,5 @@
 #pragma once
-#include "App/Interfaces/Graphics/IRenderer.h"
+#include "App/Interfaces/Graphics/IRenderer2D.h"
 #include <functional>
 #include <memory>
 #include "ShaderSupport.h"
@@ -17,7 +17,7 @@ namespace opengl
 {
 class TextureMgr;
 
-class Renderer : public app::graphics::IRenderer
+class Renderer : public app::graphics::IRenderer2D
 {
 public:
 	Renderer(sdl::ui::IWindowProvider& i_windowProvider);

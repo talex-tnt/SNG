@@ -3,7 +3,7 @@
 
 #include "Graphics/RenderContext.h"
 #include "App/Interfaces/Graphics/ITextureMgr.h"
-#include "App/Interfaces/Graphics/IRenderer.h"
+#include "App/Interfaces/Graphics/IRenderer2D.h"
 
 namespace sng
 {

@@ -8,7 +8,7 @@ class GameContext
 {
 public:
 	GameContext(
-		std::unique_ptr<app::graphics::IRenderer> i_renderer,
+		std::unique_ptr<app::graphics::IRenderer2D> i_renderer,
 		std::unique_ptr<app::graphics::ITextureMgr> i_textureMgr
 	);
 	~GameContext();
