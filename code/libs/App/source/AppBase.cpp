@@ -1,5 +1,6 @@
 #include "App/AppBase.h"
 #include "App/IAppDelegate.h"
+#include "App/Interfaces/Graphics/IRenderer.h"
 
 #include "cpp-utils/Assert.h"
 #include <chrono>
@@ -36,7 +37,7 @@ bool AppBase::Init(IAppDelegate& i_appDelegate)
 	return false;
 }
 
-void AppBase::Run()
+void AppBase::Run(app::graphics::IRenderer& i_renderer)
 {
 	DB_ASSERT_MSG(m_appDelegate, "Please call Init(..) first");
 	std::chrono::steady_clock::time_point lastTime = std::chrono::steady_clock::now();
@@ -45,7 +46,9 @@ void AppBase::Run()
 		const std::chrono::milliseconds elapsedTime = GetElapsed(lastTime);
 		ProcessEvents();
 		m_appDelegate->OnUpdate(elapsedTime);
+		i_renderer.BeginRendering();
 		m_appDelegate->OnRender();
+		i_renderer.EndRendering();
 	}
 }
 

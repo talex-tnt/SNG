@@ -1,4 +1,5 @@
 #pragma once
+#include "App/Interfaces/Graphics/IRenderer.h"
 #include "App/Interfaces/Graphics/IRenderer2D.h"
 #include <functional>
 #include <memory>
@@ -17,7 +18,9 @@ namespace opengl
 {
 class TextureMgr;
 
-class Renderer : public app::graphics::IRenderer2D
+class Renderer 
+	: public app::graphics::IRenderer
+	, public app::graphics::IRenderer2D
 {
 public:
 	Renderer(sdl::ui::IWindowProvider& i_windowProvider);
@@ -30,6 +33,8 @@ public:
 	Renderer& operator=(Renderer&&) = delete;
 
 	void RenderTexture(TextureId i_textureId, int i_posX, int i_posY) const override;
+	
+	void BeginRendering() override;
 	void EndRendering() override;
 
 	void SetTextureMgr(const TextureMgr* i_textureMgr);

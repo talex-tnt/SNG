@@ -5,6 +5,10 @@
 namespace app
 {
 class IAppDelegate;
+namespace graphics
+{
+class IRenderer;
+}
 class AppBase
 {
 protected:
@@ -13,7 +17,7 @@ protected:
 
 public:
 	bool Init(IAppDelegate& i_appDelegate);
-	void Run();
+	void Run(app::graphics::IRenderer& i_renderer);
 	
 	void OnEvent(events::EventType i_eventType);
 	void OnEvent(const events::KeyDownEvent& i_event);

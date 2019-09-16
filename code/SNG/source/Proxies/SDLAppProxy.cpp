@@ -16,11 +16,16 @@
 
 namespace
 {
-template<class RendererT, class TextureMgrT>
-std::unique_ptr<sng::GameContext> CreateAppContext(sdl::ui::IWindowProvider& i_windowProvider);
+
 }
 namespace sng
 {
+
+SDLAppProxy::SDLAppProxy() 
+	: m_renderer(nullptr)
+{
+
+}
 
 SDLAppProxy::~SDLAppProxy() = default;
 
@@ -29,9 +34,9 @@ bool SDLAppProxy::Start()
 	//sdl::App app();
 	sdl::App app(sdl::App::InitFlag::k_openGL);
 	app.SetDelegate(this);
-	if ( app.Init(m_game) )
+	if ( app.Init(m_game) && m_renderer)
 	{
-		app.Run();
+		app.Run(*m_renderer);
 		return EXIT_SUCCESS;
 	}
 	return EXIT_FAILURE;
@@ -46,20 +51,17 @@ bool SDLAppProxy::OnInit(sdl::ui::IWindowProvider& i_windowProvider)
 	using RendererT = sdl::graphics::Renderer;
 	using TextureMgrT = sdl::graphics::TextureMgr;
 #endif
-	return m_game.OnInit(CreateAppContext<RendererT, TextureMgrT>(i_windowProvider));
+	return m_game.OnInit(CreateGameContext<RendererT, TextureMgrT>(i_windowProvider));
 }
 
-}
-
-namespace
-{
 template<class RendererT, class TextureMgrT>
-std::unique_ptr<sng::GameContext> CreateAppContext(sdl::ui::IWindowProvider& i_windowProvider)
+std::unique_ptr<sng::GameContext> SDLAppProxy::CreateGameContext(sdl::ui::IWindowProvider& i_windowProvider)
 {
 	std::unique_ptr<RendererT> renderer = std::make_unique<RendererT>(i_windowProvider);
 	DB_ASSERT_MSG(renderer, "Renderer Not Initialized");
 	if ( renderer )
 	{
+		m_renderer = renderer.get();
 		RendererT* rend = renderer.get();
 		std::unique_ptr<TextureMgrT> textureMgr = std::make_unique<TextureMgrT>(*rend);
 		DB_ASSERT_MSG(textureMgr, "TextureMgr Creation failed.");
@@ -71,4 +73,5 @@ std::unique_ptr<sng::GameContext> CreateAppContext(sdl::ui::IWindowProvider& i_w
 	DB_ASSERT_MSG(false, "GameContext Creation failed.");
 	return nullptr;
 }
+
 }

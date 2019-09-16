@@ -49,6 +49,11 @@ void Renderer::EndRendering()
 	SDL_RenderPresent(m_renderer.get());
 }
 
+void Renderer::BeginRendering()
+{
+	// Nothing to do
+}
+
 bool Renderer::Init()
 {
 	DB_ASSERT_MSG(m_renderer, "Could Not Create the SDL_Renderer");

@@ -50,6 +50,11 @@ void Renderer::RenderTexture(TextureId i_textureId, int i_posX, int i_posY) cons
 	//shader_support::Render(m_renderDataContext);
 }
 
+void Renderer::BeginRendering()
+{
+	// nothing to do
+}
+
 void Renderer::EndRendering()
 {
 	SDL_GL_SwapWindow(m_windowProvider.GetSDLWindow());
