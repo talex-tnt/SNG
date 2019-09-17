@@ -3,6 +3,7 @@
 This project depends on:
 - [CMake](https://cmake.org/download/)
 - [SDL2-2.0.9](https://www.libsdl.org/download-2.0.php)
+- [SDL2_image-2.0.4](https://www.libsdl.org/projects/SDL_image/)
 - [glew-2.1.0 (Binaries)](http://glew.sourceforge.net/)
 
 Please install **CMake** first and download **SDL2-2.0.9**.
@@ -24,17 +25,27 @@ The *scripts* folder contains the following scripts:
   And a folder `libs\glew-2.1.0`    
   containing all the **GLEW** files.   
 
-You need to extract **SDL** files there, 
-run [scripts/**gen_proj-SDL.bat**](scripts/gen_proj-SDL.bat) 
+**SDL2**   
+Download the sources and extract them into the `libs` folder,   
+run [scripts/**gen_proj-SDL.bat**](scripts/gen_proj-SDL.bat)   
 open *Visual Studio* and **build** the project.
 
 Then create the folder `scripts/app`   
 (it is set as working directory by cmake)   
 and copy the `SDL2.dll` file in it after the `SDL2-2.0.9` is built.
+
+**SDL2_image**   
+Download the zip sources and extract the folder `SDL2_image-2.0.4`into the `libs` folder.   
+Copy `SDL2_image.dll` into the `app` folder.
+
+**glew**   
+Download the sources and extract them into the `libs` folder,   
 Also copy the **glew32.dll** file here. It comes with the Glew binaries.
 
+**Generate and start the project**  
 You can then run [scripts/proj-vsc/**gen_proj-vsc.bat**](scripts/proj-vsc/gen_proj-vsc.bat) 
-to generate the *Visual Studio* project inside `scripts/proj-vsc/build-vsc`, and open the solution in it.
+to generate the *Visual Studio* project inside `scripts/proj-vsc/build-vsc`,   
+and open the solution in it.
 Or you can just run `start_proj-vsc.bat` to build and open the solution once built automatically.
 
 
