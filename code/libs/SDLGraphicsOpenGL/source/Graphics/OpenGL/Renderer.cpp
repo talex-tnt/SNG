@@ -3,7 +3,7 @@
 #include "SDL/Graphics/OpenGL/TextureMgr.h"
 
 #include "Texture.h"
-#include "SDL/UI/IWindowProvider.h"
+#include "SDL/UI/IWindow.h"
 
 #if defined(__clang__)
 #	pragma clang diagnostic push
@@ -26,14 +26,14 @@ namespace graphics
 namespace opengl
 {
 
-Renderer::Renderer(sdl::ui::IWindowProvider& i_windowProvider)
-	: m_windowProvider(i_windowProvider)
+Renderer::Renderer(sdl::ui::IWindow& i_window)
+	: m_windowProvider(i_window)
 	, m_glContext(
-		SDL_GL_CreateContext(i_windowProvider.GetSDLWindow()),
+		SDL_GL_CreateContext(i_window.GetSDLWindow()),
 		[] (SDL_GLContext* context) { SDL_GL_DeleteContext(context); })
 {
 	DB_ASSERT_MSG(m_glContext, "Could Not Create the SDL_GLContext: " << SDL_GetError());
-	Init(i_windowProvider);
+	Init(i_window);
 }
 
 Renderer::~Renderer() = default;
@@ -60,10 +60,10 @@ void Renderer::EndRendering()
 	SDL_GL_SwapWindow(m_windowProvider.GetSDLWindow());
 }
 
-bool Renderer::Init(sdl::ui::IWindowProvider& i_windowProvider)
+bool Renderer::Init(sdl::ui::IWindow& i_window)
 {
 	int width, height;
-	SDL_GetWindowSize(i_windowProvider.GetSDLWindow(), &width, &height);
+	SDL_GetWindowSize(i_window.GetSDLWindow(), &width, &height);
 
 
 	m_isOpenGLInitialized = shader_support::InitGLExtensions();

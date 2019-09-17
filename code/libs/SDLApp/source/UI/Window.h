@@ -1,6 +1,6 @@
 #pragma once
 #include "App/Identifiers.h"
-#include "SDL/UI/IWindowProvider.h"
+#include "SDL/UI/IWindow.h"
 
 #include <functional>
 #include <memory>
@@ -29,7 +29,7 @@ class TextureMgr;
 
 namespace ui
 {
-class Window final: public IWindowProvider
+class Window final: public IWindow
 {
 public:
 	Window(std::uint32_t i_flags = 0u);

@@ -2,7 +2,7 @@
 #include "SDL/Graphics/TextureMgr.h"
 #include "Texture.h"
 
-#include "SDL/UI/IWindowProvider.h"
+#include "SDL/UI/IWindow.h"
 #include "cpp-utils/Assert.h"
 
 #if defined(__clang__)
@@ -21,9 +21,9 @@ namespace graphics
 const uint32_t k_flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
 const int k_index = -1;
 
-Renderer::Renderer(sdl::ui::IWindowProvider& i_windowProvider)
+Renderer::Renderer(sdl::ui::IWindow& i_window)
 	: m_renderer(
-		SDL_CreateRenderer(i_windowProvider.GetSDLWindow(), k_index, k_flags),
+		SDL_CreateRenderer(i_window.GetSDLWindow(), k_index, k_flags),
 		[] (SDL_Renderer* renderer) { SDL_DestroyRenderer(renderer); })
 {
 	DB_ASSERT_MSG(m_renderer, "Could Not Create the SDL_Renderer");

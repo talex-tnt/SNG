@@ -6,7 +6,7 @@ namespace sdl
 {
 namespace ui 
 {
-class IWindowProvider;
+class IWindow;
 }
 }
 
@@ -27,11 +27,11 @@ public:
 	SDLAppProxy();
 	~SDLAppProxy();
 	bool Start();
-	bool OnInit(sdl::ui::IWindowProvider&) override;
+	bool OnInit(sdl::ui::IWindow&) override;
 	
 private:
 	template<class RendererT, class TextureMgrT>
-	std::unique_ptr<sng::GameContext> CreateGameContext(sdl::ui::IWindowProvider& i_windowProvider);
+	std::unique_ptr<sng::GameContext> CreateGameContext(sdl::ui::IWindow& i_window);
 
 	app::graphics::IRenderer* m_renderer;
 	Game m_game;

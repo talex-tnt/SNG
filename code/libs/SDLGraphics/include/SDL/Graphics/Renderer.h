@@ -18,7 +18,7 @@ namespace sdl
 {
 namespace ui
 {
-class IWindowProvider;
+class IWindow;
 }
 namespace graphics
 {
@@ -29,7 +29,7 @@ class Renderer
 	, public app::graphics::IRenderer2D
 {
 public:
-	Renderer(sdl::ui::IWindowProvider& i_windowProvider);
+	Renderer(sdl::ui::IWindow& i_window);
 	~Renderer();
 
 	Renderer(const Renderer&) = delete;

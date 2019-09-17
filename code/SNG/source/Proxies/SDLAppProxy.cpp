@@ -2,7 +2,7 @@
 #include "../Game/GameContext.h"
 
 #include "SDL/App.h"
-#include "SDL/UI/IWindowProvider.h"
+#include "SDL/UI/IWindow.h"
 
 #include "SDL/Graphics/Renderer.h"
 #include "SDL/Graphics/TextureMgr.h"
@@ -42,7 +42,7 @@ bool SDLAppProxy::Start()
 	return EXIT_FAILURE;
 }
 
-bool SDLAppProxy::OnInit(sdl::ui::IWindowProvider& i_windowProvider)
+bool SDLAppProxy::OnInit(sdl::ui::IWindow& i_window)
 {
 #if USE_OPENGL_RENDERER
 	using RendererT = sdl::graphics::opengl::Renderer;
@@ -51,13 +51,13 @@ bool SDLAppProxy::OnInit(sdl::ui::IWindowProvider& i_windowProvider)
 	using RendererT = sdl::graphics::Renderer;
 	using TextureMgrT = sdl::graphics::TextureMgr;
 #endif
-	return m_game.OnInit(CreateGameContext<RendererT, TextureMgrT>(i_windowProvider));
+	return m_game.OnInit(CreateGameContext<RendererT, TextureMgrT>(i_window));
 }
 
 template<class RendererT, class TextureMgrT>
-std::unique_ptr<sng::GameContext> SDLAppProxy::CreateGameContext(sdl::ui::IWindowProvider& i_windowProvider)
+std::unique_ptr<sng::GameContext> SDLAppProxy::CreateGameContext(sdl::ui::IWindow& i_window)
 {
-	std::unique_ptr<RendererT> renderer = std::make_unique<RendererT>(i_windowProvider);
+	std::unique_ptr<RendererT> renderer = std::make_unique<RendererT>(i_window);
 	DB_ASSERT_MSG(renderer, "Renderer Not Initialized");
 	if ( renderer )
 	{

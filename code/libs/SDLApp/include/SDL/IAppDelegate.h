@@ -4,14 +4,14 @@ namespace sdl
 {
 namespace ui
 {
-class IWindowProvider;
+class IWindow;
 }
 
 class IAppDelegate
 {
 public:
 	virtual ~IAppDelegate() = default;
-	virtual bool OnInit(ui::IWindowProvider&) = 0;
+	virtual bool OnInit(ui::IWindow&) = 0;
 };
 
 }

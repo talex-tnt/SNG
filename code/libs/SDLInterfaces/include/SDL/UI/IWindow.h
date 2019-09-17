@@ -5,14 +5,14 @@ namespace sdl
 {
 	namespace ui
 	{
-	class IWindowProvider
+	class IWindow
 	{
 	public:
 		virtual SDL_Window* GetSDLWindow() = 0;
 		virtual const SDL_Window* GetSDLWindow() const = 0;
 
 	protected:
-		~IWindowProvider() = default;
+		~IWindow() = default;
 	};
 	}
 }
