@@ -15,8 +15,7 @@ target_link_libraries(${PROJECT_NAME}
    	${SDL2_LIBRARY}
    	${GLEW_LIBRARY}
     cpp-utils
-    App
-	AppInterfaces
+	  AppInterfaces
     SDLInterfaces
 )
 

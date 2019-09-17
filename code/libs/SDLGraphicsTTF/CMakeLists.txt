@@ -14,8 +14,6 @@ add_library(${PROJECT_NAME} STATIC ${HEADER_FILES} ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME} 
    	${SDL2_LIBRARY}
     cpp-utils
-	AppInterfaces
-    SDLInterfaces
 )
 
 target_include_directories(${PROJECT_NAME}

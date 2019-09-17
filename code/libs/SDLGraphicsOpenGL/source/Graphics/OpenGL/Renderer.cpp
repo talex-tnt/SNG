@@ -70,7 +70,7 @@ bool Renderer::Init(sdl::ui::IWindowProvider& i_windowProvider)
 	DB_ASSERT_MSG(m_isOpenGLInitialized, "Couldn't init GL extensions!");
 	if ( m_isOpenGLInitialized )
 	{
-		glViewport(0.f, 0.f, width, height);
+		glViewport(0, 0, width, height);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0.0, width, height, 0.0, 1.0, -1.0);

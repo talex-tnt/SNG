@@ -49,7 +49,15 @@ Texture::Texture(const TexturePath& i_path)
 		}
 
 		DB_LOG("BytesPerPixel:" + std::to_string(surface->format->BytesPerPixel));
-		glTexImage2D(GL_TEXTURE_2D, 0, mode, m_width, m_height, 0, mode, GL_UNSIGNED_BYTE, surface->pixels);
+		glTexImage2D(GL_TEXTURE_2D,
+					 0u, 
+					 mode, 
+					 static_cast<GLsizei>(m_width), 
+					 static_cast< GLsizei >( m_height), 
+					 0u, 
+					 mode, 
+					 GL_UNSIGNED_BYTE, 
+					 surface->pixels);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -66,22 +74,25 @@ Texture::~Texture()
 	}
 }
 
-void Texture::Render(int x, int y) const
+void Texture::Render(int i_x, int i_y) const
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glBindTexture(GL_TEXTURE_2D, m_textureId);
-
-	const int width = m_width;
-	const int height = m_height;
-	//DB_LOG("w:" + std::to_string(width) + " h:" + std::to_string(height));
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(x, y, 0);
-	glTexCoord2f(1, 0); glVertex3f(x + width, y, 0);
-	glTexCoord2f(1, 1); glVertex3f(x + width, y + height, 0);
-	glTexCoord2f(0, 1); glVertex3f(x, y + height, 0);
-	glEnd();
+	{
+		const float x = static_cast<float>(i_x);
+		const float y = static_cast<float>(i_y);
+		const std::size_t width = m_width;
+		const std::size_t height = m_height;
+		//DB_LOG("w:" + std::to_string(width) + " h:" + std::to_string(height));
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.f, 0.f); glVertex3f(x, y, 0.f);
+		glTexCoord2f(1.f, 0.f); glVertex3f(x + width, y, 0.f);
+		glTexCoord2f(1.f, 1.f); glVertex3f(x + width, y + height, 0.f);
+		glTexCoord2f(0.f, 1.f); glVertex3f(x, y + height, 0.f);
+		glEnd();
+	}
 }
 
 bool Texture::IsValid() const
