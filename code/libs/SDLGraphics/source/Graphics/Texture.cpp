@@ -1,5 +1,6 @@
 #include "Texture.h"
 #include "cpp-utils/Assert.h"
+#include "SDL/Graphics/ISurface.h"
 
 #if defined(__clang__)
 #	pragma clang diagnostic push
@@ -13,13 +14,11 @@
 
 namespace
 {
-SDL_Texture* LoadTexture(TexturePath path, SDL_Renderer* renderer)
+
+SDL_Texture* LoadTexture(SDL_Surface* loadedSurface, SDL_Renderer* renderer, const TexturePath& path = TexturePath(""))
 {
 	SDL_Texture* newTexture = nullptr;
-
-	SDL_Surface* loadedSurface = IMG_Load(path.GetValue().c_str());
 	DB_ASSERT_MSG(loadedSurface, "Unable to load image " << path.GetValue().c_str() << "! SDL_image Error: " << IMG_GetError());
-
 	if ( loadedSurface )
 	{
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
@@ -29,6 +28,12 @@ SDL_Texture* LoadTexture(TexturePath path, SDL_Renderer* renderer)
 	}
 	return newTexture;
 }
+
+SDL_Texture* LoadTextureWithPath(const TexturePath& path, SDL_Renderer* renderer)
+{
+	return LoadTexture(IMG_Load(path.GetValue().c_str()), renderer, path);
+}
+
 }
 
 namespace sdl
@@ -39,12 +44,21 @@ namespace graphics
 Texture::Texture(const TexturePath& i_path, SDL_Renderer& i_renderer)
 	: m_renderer(i_renderer)
 	, m_texture(
-		LoadTexture(i_path, &m_renderer),
+		LoadTextureWithPath(i_path, &m_renderer),
 		[] (SDL_Texture* tex) { SDL_DestroyTexture(tex); })
 {
 	DB_ASSERT_MSG(m_texture, "Unable to create texture with path " << i_path);
 }
 
+
+Texture::Texture(ISurface& i_surface, SDL_Renderer& i_renderer)
+	: m_renderer(i_renderer)
+	, m_texture(
+		LoadTexture(i_surface.GetSDLSurface(), &m_renderer),
+		[] (SDL_Texture* tex) { SDL_DestroyTexture(tex); })
+{
+
+}
 
 void Texture::Render(int x, int y) const
 {

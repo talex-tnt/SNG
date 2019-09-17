@@ -9,10 +9,11 @@ namespace sdl
 {
 namespace graphics
 {
-
+class ISurface;
 class Texture
 {
 public:
+	Texture(ISurface& i_surface, SDL_Renderer& i_renderer);
 	Texture(const TexturePath& i_path, SDL_Renderer& i_renderer);
 	~Texture() = default;
 
