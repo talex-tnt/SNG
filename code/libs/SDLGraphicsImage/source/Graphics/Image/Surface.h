@@ -15,7 +15,7 @@ namespace image
 class Surface : public sdl::graphics::ISurface
 {
 public:
-	Surface(const TexturePath& i_path);
+	Surface(const SurfacePath& i_path);
 	~Surface() = default;
 
 	Surface(const Surface&) = delete;
@@ -26,13 +26,13 @@ public:
 
 	SDL_Surface* GetSDLSurface() override;
 	const SDL_Surface* GetSDLSurface() const override;
-
+	SurfaceId GetId() const override;
 	bool IsValid() const;
 
 private:
 	using SurfacePtr = std::unique_ptr<SDL_Surface, std::function<void(SDL_Surface*)>>;
 	SurfacePtr m_surface;
-
+	SurfaceId m_id;
 };
 }
 }

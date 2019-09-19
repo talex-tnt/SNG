@@ -19,5 +19,6 @@ target_link_libraries(${PROJECT_NAME}
 	AppInterfaces
     SDLApp
     SDLGraphics
+    SDLGraphicsImage
 	SDLGraphicsOpenGL
 )

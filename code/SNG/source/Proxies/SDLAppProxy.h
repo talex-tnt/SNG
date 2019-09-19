@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL/IAppDelegate.h"
 #include "../Game/Game.h"
+#include "SDL/Graphics/SurfaceMgr.h"
 
 namespace sdl
 {
@@ -34,6 +35,7 @@ private:
 	std::unique_ptr<sng::GameContext> CreateGameContext(sdl::ui::IWindow& i_window);
 
 	app::graphics::IRenderer* m_renderer;
+	sdl::graphics::SurfaceMgr m_surfaceMgr;
 	Game m_game;
 };
 }

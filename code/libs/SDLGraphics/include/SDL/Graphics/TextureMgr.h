@@ -19,11 +19,12 @@ namespace graphics
 {
 class Renderer;
 class Texture;
+class SurfaceMgr;
 
 class TextureMgr : public app::graphics::ITextureMgr
 {
 public:
-	TextureMgr(Renderer& i_renderer);
+	TextureMgr(SurfaceMgr& i_surfaceMgr, Renderer& i_renderer);
 	~TextureMgr();
 
 	TextureMgr(const TextureMgr&) = delete;
@@ -33,6 +34,7 @@ public:
 	TextureMgr& operator=(TextureMgr&&) = delete;
 
 	TextureId CreateTexture(TexturePath i_path) override;
+	TextureId CreateTexture(SurfaceId i_surfaceId) override;
 
 	const Texture* FindTextureById(TextureId i_textureId) const;
 	Texture* FindTextureById(TextureId i_textureId);
@@ -40,11 +42,11 @@ public:
 private:
 	bool InitImageExt();
 	Renderer& m_renderer;
+	SurfaceMgr& m_surfaceMgr;
 
 	using TexturePtr = std::unique_ptr<Texture>;
 	using TextureMap = std::unordered_map<TextureId, TexturePtr, TextureId::Hasher>;
 	TextureMap m_textures;
-
 };
 
 }

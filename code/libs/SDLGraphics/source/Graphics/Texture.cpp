@@ -23,8 +23,6 @@ SDL_Texture* LoadTexture(SDL_Surface* loadedSurface, SDL_Renderer* renderer, con
 	{
 		newTexture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
 		DB_ASSERT_MSG(newTexture, "Unable to create texture from " << path.GetValue().c_str() << "! SDL Error :" << SDL_GetError());
-
-		SDL_FreeSurface(loadedSurface);
 	}
 	return newTexture;
 }

@@ -9,10 +9,11 @@
 
 #include "SDL/Graphics/OpenGL/Renderer.h"
 #include "SDL/Graphics/OpenGL/TextureMgr.h"
+#include "SDL/Graphics/Image/SurfaceLoader.h"
 
 #include "cpp-utils/Assert.h"
 
-#define USE_OPENGL_RENDERER 1
+#define USE_OPENGL_RENDERER 0
 
 namespace
 {
@@ -63,11 +64,17 @@ std::unique_ptr<sng::GameContext> SDLAppProxy::CreateGameContext(sdl::ui::IWindo
 	{
 		m_renderer = renderer.get();
 		RendererT* rend = renderer.get();
-		std::unique_ptr<TextureMgrT> textureMgr = std::make_unique<TextureMgrT>(*rend);
+		std::unique_ptr<TextureMgrT> textureMgr = std::make_unique<TextureMgrT>(m_surfaceMgr, *rend);
 		DB_ASSERT_MSG(textureMgr, "TextureMgr Creation failed.");
 		if ( textureMgr )
 		{
-			return std::make_unique<sng::GameContext>(std::move(renderer), std::move(textureMgr));
+			using ImageSurfaceLoader = sdl::graphics::image::SurfaceLoader;
+			std::unique_ptr<ImageSurfaceLoader> imageLoader = std::make_unique<ImageSurfaceLoader>(m_surfaceMgr);
+			return std::make_unique<sng::GameContext>(
+				std::move(renderer),
+				std::move(textureMgr),
+				std::move(imageLoader)
+				);
 		}
 	}
 	DB_ASSERT_MSG(false, "GameContext Creation failed.");

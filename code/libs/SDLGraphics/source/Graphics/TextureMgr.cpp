@@ -2,9 +2,9 @@
 #include "App/Identifiers.h"
 
 #include "SDL/Graphics/Renderer.h"
+#include "SDL/Graphics/SurfaceMgr.h"
 #include "Texture.h"
 
-#include "cpp-utils/Assert.h"
 
 #if defined(__clang__)
 #	pragma clang diagnostic push
@@ -16,15 +16,17 @@
 #	pragma clang diagnostic pop
 #endif
 
+#include "cpp-utils/Assert.h"
 #include <type_traits>
+#include "SDL/Graphics/SurfaceBase.h"
 
 namespace sdl
 {
 namespace graphics
 {
 
-TextureMgr::TextureMgr(Renderer& i_renderer)
-	: m_renderer(i_renderer)
+TextureMgr::TextureMgr(SurfaceMgr& i_surfaceMgr, Renderer& i_renderer)
+	: m_renderer(i_renderer), m_surfaceMgr(i_surfaceMgr)
 {
 	InitImageExt();
 	m_renderer.SetTextureMgr(this);
@@ -74,7 +76,31 @@ TextureId TextureMgr::CreateTexture(TexturePath i_path)
 	return textureId;
 }
 
+TextureId TextureMgr::CreateTexture(SurfaceId i_surfaceId)
+{
+	TextureId textureId;
+	ISurface* surface = m_surfaceMgr.FindSurfaceById(i_surfaceId);
+	DB_ASSERT_MSG(surface && surface->IsValid(), "Surface with id " << i_surfaceId << " was not found or isn't valid.");
+	if (surface && surface->IsValid())
+	{
+		SDL_Renderer* renderer = m_renderer.GetSDLRenderer();
+		TexturePtr texture = std::make_unique<Texture>(*surface, *renderer);
 
+		DB_ASSERT_MSG(texture->IsValid(), "Couldn't create the texture from Surface with id " << surface->GetId());
+		if ( texture->IsValid() )
+		{
+			textureId = TextureId(surface->GetId().GetValue());
+
+			const Texture* prevTex = FindTextureById(textureId);
+			DB_ASSERT_MSG(prevTex == nullptr, "Texture from Surface with id " << surface->GetId() << " was already created.");
+			if ( prevTex == nullptr )
+			{
+				m_textures.emplace(textureId, std::move(texture));
+			}
+		}
+	}
+	return textureId;
+}
 
 bool TextureMgr::InitImageExt()
 {

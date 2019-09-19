@@ -15,6 +15,7 @@ target_link_libraries(${PROJECT_NAME}
    	${SDL2_LIBRARY}
     cpp-utils
 	AppIdentifiers
+	AppInterfaces
 	SDLInterfaces
 )
 

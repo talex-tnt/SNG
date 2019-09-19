@@ -11,6 +11,8 @@ class ITextureMgr
 public:
 	virtual ~ITextureMgr() = default;
 	virtual TextureId CreateTexture(TexturePath i_path) = 0;
+	virtual TextureId CreateTexture(SurfaceId i_surfaceId) = 0;
+
 };
 
 }
